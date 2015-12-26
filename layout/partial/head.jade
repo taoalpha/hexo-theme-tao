@@ -1,0 +1,19 @@
+meta(charset="utf-8")
+meta(name="X-UA-Compatible", content="IE=edge")
+
+title 
+    block site_title
+        = config.title
+block description
+    meta(name="description", content= config.description ? config.description : 'A Blog Powered By Hexo')
+meta(name="viewport", content="width=device-width, initial-scale=1")
+
+// open graph part
+each val,key in theme.og
+  meta(property='og:'+'#{key}', content='#{val}')
+
+link(rel="short icon", href=url_for(theme.favicon))
+link(rel="stylesheet", href=url_for("css/default.css"))
+if page.pname == "puzzle"
+  link(rel="stylesheet", href=url_for("css/puzzle.css"))
+  link(rel="stylesheet", href="https://technotarek.com/timeliner/js/vendor/venobox/venobox.css")

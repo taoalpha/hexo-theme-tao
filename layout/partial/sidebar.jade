@@ -1,0 +1,9 @@
+if site.posts.toArray().length>2
+  aside.sidenav
+    div.recentposts
+      h2 Recent Posts:
+      ul.article-list
+      each post in site.posts.sort('-date').toArray().slice(0,6)
+        if post.title != page.title
+          li
+            a(href=url_for(post.permalink))= post.title

@@ -1,0 +1,68 @@
+menus:
+    myliks: 
+      name: mylinks
+      icon: fa-anchor
+    tipme: 
+      name: tipme
+      icon: fa-gratipay
+    search:
+      name: search
+      icon: fa-search
+      js: 1
+    puzzle: 
+      name: puzzle
+      icon: fa-puzzle-piece
+
+favicon: favicon.png
+logo: favicon.png
+
+# google-analytics:
+ga: UA-46725017-2
+# baidu-analytics:
+ba: 
+
+# settings
+swiftype: true
+
+## for duoshuo
+comments :
+  provider : duoshuo
+  duoshuo :
+    short_name : taoalpha
+    api : 
+      commentCount: "http://api.duoshuo.com/threads/counts.json?short_name=taoalpha&threads="
+
+og:
+  image: http://taoalpha.me/images/newblog.jpg
+  description: TaoAlpha's hexo Blog
+  type: website
+
+# social links
+social:
+  facebook:
+    url: http://facebook.com/zzgary/
+    img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/facebook-32.png
+  github:
+    url: http://github.com/taoalpha/
+    img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/github-32.png
+  portfolio:
+    url: http://taoalpha.me
+    img: https://cdn3.iconfinder.com/data/icons/colore-sociale/32/mewally_32x32.png
+  douban:
+    url: http://douban.com/people/129154019
+    img: http://img3.douban.com/favicon.ico
+
+# authors
+authors:
+  taoalpha:
+    display_name: TaoAlpha
+    avatar: https://avatars3.githubusercontent.com/u/4335753?v=3&s=40
+    email: iamzhoutao92@gmail.com
+    web: http://zzgary.info
+    github: taoalpha
+  Luke Hoban:
+    display_name: Luke Hoban
+    avatar: https://avatars0.githubusercontent.com/u/223467?v=3&s=460 
+    email: lukehoban@gmail.com
+    web: http://blogs.msdn.com/lukeh
+    github: lukehoban

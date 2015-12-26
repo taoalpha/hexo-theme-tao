@@ -1,0 +1,31 @@
+mixin posts()
+  article
+    ul.article-list
+      - page.posts.each(function(item, index) {
+        - var tags = []
+        - item.tags.each(function(tag){tags.push(tag.name.replace(/ /g,'-'))})
+        li.post(data-filter='#{tags.join(" ")}')
+          article.post-block
+            h2.post-title
+              a.post-title-link(href= url_for(item.path))
+                != item.title
+            include ../partial/summary
+      - })
+
+mixin post(item)
+  section.entry
+    h1.entry-title
+      a(href=url_for(item.permalink) title="#{ item.title }")
+        != item.title
+    div.meta-top
+      - var author = item.author ? item.author:"taoalpha"
+      a(href=url_for("user/"+theme.authors[author].display_name))
+        div.avatar(style="display:inline-block;")
+          img(src="#{ theme.authors[author].avatar }" alt="100")
+        span= theme.authors[author].display_name
+      span= date(item.date)
+      span.wordage= strip_html(item.content).length + "字"
+      span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" 分钟读完"
+    !=item.content
+    if item.pname != "tipme"
+      include ../partial/tipme

@@ -1,0 +1,10 @@
+extends partial/layout
+
+block container
+  include partial/picbar
+  section.index-content(class="#{ page.pname }")
+    include partial/catebar
+    include mixins/post
+    +posts()
+    include mixins/paginator
+    +home()

@@ -1,0 +1,37 @@
+aside.home-menu
+  nav.home-icon-con.upside
+  - var singlemenus = ['mylinks','tipme','puzzle']
+  if page.pname in singlemenus
+    a.home-menu-icon.brand(href="/blog/") 涛
+  else
+    a.home-menu-icon.brand.active(href="/blog/") 涛
+  each value, key in theme.menus
+    if value.name == 'search'
+      a.home-menu-icon(href="javascript:$('.searchbox').focus().css('border', '4px dashed #666');setTimeout(function(){$('.searchbox').focus().css('border', 'none').css('border-bottom', '1px solid #ccc')},1000);")
+        i.fa.fa-1x(class="#{value.icon}")
+    else if value.name == page.pname
+      a.home-menu-icon.active(href="/blog/#{value.name}")
+        i.fa.fa-1x(class="#{value.icon}")
+    else
+      a.home-menu-icon(href="/blog/#{value.name}")
+        i.fa.fa-1x(class="#{value.icon}")
+  a.home-menu-icon.follow(href="javascript:;" title="Contact Me") +
+  div.home-contact
+    each value, key in theme.social
+      a(href="#{value.url}" target="something")
+        img(src="#{value.img}" alt="#{key}")
+  nav.home-icon-con.downside
+    a.home-menu-icon.makecontribution(href='#contribution')
+      i.fa.fa-pencil.fa-1x
+    a#togglemusic.home-menu-icon(href='javascript:;')
+      i.fa.fa-music.fa-1x
+  include music
+
+#contribution.hide
+  span.close
+  input#sender_mail(type='email', placeholder='Give me your email')
+  textarea#contributionContent(name='contribution', cols='30', rows='10', placeholder='Thanks for your contribution!\
+  Now tell me what you want to say: feedback ? advice ? contributions ? Whatever you want ^_^.\
+  I will look at it as soon as I receive it and reply you asap.\
+  ')
+  input#sendToMe(type='submit')

@@ -1,0 +1,40 @@
+mixin home()
+  - var prev = page.prev_link
+  - var next = page.next_link
+  if page.total > 1
+    nav.pagination
+      .paginator
+        if page.total >= 3
+          if page.current == 1
+            em.prev « Prev
+          else
+            a.prev(href=url_for(prev)) « Prev
+        - var pcount = 1
+        - var loc = url.replace("/index.html",'').split("/page")[0]
+        while pcount <= 4
+          if pcount == page.current
+            em= pcount++
+          else if pcount == 1
+            a(href='#{loc}')= pcount++
+          else
+            a(href="#{loc}/page/"+pcount)= pcount++
+        if page.current >=4 && page.current <= page.total -4
+          em= "..."
+          em= page.current
+        if pcount < page.total - 3
+          em= "..."
+        - pcount = page.total - 3
+        while pcount <= page.total
+          if pcount == page.current
+            em= pcount++
+          else
+            a(href="#{loc}/page/"+pcount)= pcount++
+        if page.total >= 3
+          if page.next
+            a.next(href=url_for(next)) Next »
+          else
+            em.prev(href=url_for(next)) Next »
+
+mixin post()
+    - var prev = page.prev ? page.prev.path : false;
+    - var next = page.next ? page.next.path : false; 

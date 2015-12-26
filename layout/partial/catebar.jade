@@ -1,0 +1,17 @@
+nav
+  ul.article-cate
+    - var active = (is_home())?"on":""
+    li(class="#{active}")
+      a(href="#{ config.url }/")
+        span Blog
+    - site.categories.each(function(cate){
+    if cate.name.toLowerCase() != "blog"
+      li
+        a(href=url_for("categories/"+cate.name) style="width:70px;") #{cate.name}
+    - })
+    li
+      a(href="/" style="width:70px;") Portfolio
+    li.search
+      input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
+
+

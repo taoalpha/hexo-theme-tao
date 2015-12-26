@@ -1,0 +1,12 @@
+doctype html
+html(lang=config.language)
+  head
+    include head
+  - var pname = typeof page.pname == "undefined" ? "blogpost" : page.pname
+  - if(is_home()||is_tag()||is_category()){pname = "blog"}
+  body(class="#{pname}")
+    include navbar
+    block container
+    .notification.fail.hidden
+    include scripts
+    block scripts

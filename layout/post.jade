@@ -1,0 +1,19 @@
+extends partial/layout
+
+block container
+  article#content
+    include mixins/post
+    +post(page)
+    include partial/searchbox
+    //include partial/series
+    include partial/sidebar
+
+    include mixins/paginator
+    +post()
+    include partial/comment
+
+block scripts
+  script(src=url_for("js/post.js"))
+  if page.pname == "tipme"
+    script(type="text/javascript").
+      showMyWishBooks()

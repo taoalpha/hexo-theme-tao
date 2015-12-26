@@ -1,0 +1,17 @@
+extends partial/layout
+
+block container
+  include partial/picbar
+  section.index-content(class="#{ page.id }")
+    include partial/catebar
+    include partial/tagbar
+    include mixins/post
+    +posts()
+    include mixins/paginator
+    +home()
+
+block scripts
+  script(type="text/javascript").
+    getLocation()
+    randomTags("")
+    getPageViewCount()
