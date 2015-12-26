@@ -1,9 +1,11 @@
 meta(charset="utf-8")
 meta(name="X-UA-Compatible", content="IE=edge")
 
+- var title = config.title
+- if (page.title && page.title != config.title) {title = page.title +" | "+ config.title}
 title 
     block site_title
-        = config.title
+        = title
 block description
     meta(name="description", content= config.description ? config.description : 'A Blog Powered By Hexo')
 meta(name="viewport", content="width=device-width, initial-scale=1")
