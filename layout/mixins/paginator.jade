@@ -11,7 +11,9 @@ mixin home()
             a.prev(href=url_for(prev)) « Prev
         - var pcount = 1
         - var loc = url.replace("/index.html",'').split("/page")[0]
-        while pcount <= 4
+        - var middle = 4
+        - if(page.total < middle){middle = page.total}
+        while pcount <= middle
           if pcount == page.current
             em= pcount++
           else if pcount == 1
@@ -23,7 +25,7 @@ mixin home()
           em= page.current
         if pcount < page.total - 3
           em= "..."
-        - pcount = page.total - 3
+        - if (pcount <= page.total -3) {pcount = page.total - 3}
         while pcount <= page.total
           if pcount == page.current
             em= pcount++
