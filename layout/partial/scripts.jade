@@ -4,21 +4,32 @@ script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.co
 
 - var ga = theme.ga
 - var ba = theme.ba
+- var swift = theme.swiftype
+- var latex = theme.latex
 
 if ga
-    script
-        | (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',
-        != '"' + ga + '"'
-        | ,'auto');ga('send','pageview');
+  script
+    | (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',
+    != '"' + ga + '"'
+    | ,'auto');ga('send','pageview');
 if ba
-    script
-        | var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = 
-        != '"' + ba + '"'
-        | ;var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();
+  script
+    | var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = 
+    != '"' + ba + '"'
+    | ;var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();
+
+if swift
+  script
+    | (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    | (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    | e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    | })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+    | _st('install','CUMLELEvkSRAFuVehSCm','2.0.0');
 
 //- LaTex
-script(src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
-
+if latex
+  script(src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 
 // main functions
 script(src=url_for("js/functions.js"))

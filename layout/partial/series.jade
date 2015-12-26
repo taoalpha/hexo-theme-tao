@@ -1,16 +1,15 @@
 if page.series
   - var counter = 0
   aside.sidenav.series
-    h2 In Serie: #{page.series}
+    h2= "In Serie: "+page.series
       i.fa.fa-arrow-down.expand
       i.collapse.fa.fa-arrow-up
-      ul.article-list
-      each post,key in site.posts
+    ul.article-list
+      each post,key in site.posts.toArray()
         if post.series == page.series && counter != 6
-          counter ++
           if post.title == page.title
             li
-              a.current(href=url_for(post.link))= post.title
+              a.current(href=url_for(post.permalink) data-id=count++)= post.title
           else
             li
-              a(href=url_for(post.link))= post.title
+              a(href=url_for(post.permalink) data-id=count++)= post.title
