@@ -11,7 +11,7 @@ div.post-info
   span.author
     i.fa.fa-user
     - var author = item.author || "taoalpha"
-    a(href="/blog/user/#{ author }") #{ authors[author].display_name }
+    a(href=authors[author].web) #{ authors[author].display_name }
   span.category
     i.fa.fa-briefcase
     each cat in item.categories.toArray()

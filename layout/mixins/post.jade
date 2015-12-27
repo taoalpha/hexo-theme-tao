@@ -20,7 +20,7 @@ mixin post(item)
         != item.title
     div.meta-top
       - var author = item.author ? item.author:"taoalpha"
-      a(href=url_for("user/"+theme.authors[author].display_name))
+      a(href=theme.authors[author].web)
         div.avatar(style="display:inline-block;")
           img(src="#{ theme.authors[author].avatar }" alt="100")
         span= theme.authors[author].display_name

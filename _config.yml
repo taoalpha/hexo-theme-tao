@@ -1,7 +1,7 @@
 menus:
-    myliks: 
-      name: mylinks
-      icon: fa-anchor
+  # myliks: 
+  #   name: mylinks
+  #   icon: fa-anchor
     tipme: 
       name: tipme
       icon: fa-gratipay
@@ -58,7 +58,7 @@ authors:
     display_name: TaoAlpha
     avatar: https://avatars3.githubusercontent.com/u/4335753?v=3&s=40
     email: iamzhoutao92@gmail.com
-    web: http://zzgary.info
+    web: http://taoalpha.me
     github: taoalpha
   Luke Hoban:
     display_name: Luke Hoban
