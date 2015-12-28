@@ -25,7 +25,8 @@ aside.home-menu
       i.fa.fa-pencil.fa-1x
     a#togglemusic.home-menu-icon(href='javascript:;')
       i.fa.fa-music.fa-1x
-  include music
+  include ../mixins/widget
+  +music()
 
 #contribution.hide
   span.close

@@ -4,9 +4,10 @@ block container
   article#content
     include mixins/post
     +post(page)
-    include partial/searchbox
-    include partial/sidebar
-
+    include mixins/widget
+    +searchbox()
+    +related()
+    +recent()
     include mixins/paginator
     +post()
     include partial/comment

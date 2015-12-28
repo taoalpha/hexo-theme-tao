@@ -1,7 +1,0 @@
-nav.cate-bar
-  ul.tags
-    a(href="javascript:;" data-rel="All" class="filter tag active") All
-    - var tags = []
-    - page.posts.toArray().map(function(item){item.tags.toArray().map(function(i){if(tags.indexOf(i.name)==-1){tags.push(i.name)}})})
-    each tag in tags
-      a(href="javascript:;" data-rel="#{ tag.replace(/ /g,'-') }" class="filter tag")= tag

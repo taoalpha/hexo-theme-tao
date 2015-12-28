@@ -1,7 +1,8 @@
 extends partial/layout
 
 block container
-  include partial/picbar
+  include mixins/widget
+  +picbar()
   section.index-content(class="#{ page.pname }")
     != page.content.replace(/<br>/g,'')
 

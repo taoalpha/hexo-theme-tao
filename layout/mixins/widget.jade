@@ -1,0 +1,135 @@
+mixin searchbox()
+  if theme.swiftype
+    aside.sidenav
+      input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
+
+mixin series()
+  if page.series
+    - var counter = 0
+    aside.sidenav.series
+      h2= "In Serie: "+page.series
+        i.fa.fa-arrow-down.expand
+        i.collapse.fa.fa-arrow-up
+      ul.article-list
+        each post,key in site.posts.toArray()
+          if post.series == page.series && counter != 6
+            if post.title == page.title
+              li
+                a.current(href=url_for(post.permalink) data-id=count++)= post.title
+            else
+              li
+                a(href=url_for(post.permalink) data-id=count++)= post.title
+
+mixin related()
+  - var posts = []
+  - if(page.categories){
+  -   var cat = page.categories.toArray()[0].name
+  -   var existTags = page.tags.toArray().map(function(v){return v.name})
+  -   var prePosts = site.categories.findOne({name: cat}).posts
+  -   if(prePosts.toArray().length>0){
+  -     var someCatPosts = prePosts.sort('date', -1).toArray()
+  -     someCatPosts.forEach(function(v){
+  -       var tags = v.tags.toArray().map(function(t){return t.name}).filter(function(n){return existTags.indexOf(n)!=-1})
+  -       if(tags.length>0 && posts.length < 5 && v.permalink != page.permalink){
+  -         posts.push(v)
+  -       }
+  -     })
+  -   }
+  - }
+  if posts.length > 0
+    div.relatedposts.sidenav
+      h2= "Related Posts:"
+      ul.article-list
+        each post in posts
+          li
+            a(href=url_for(post.permalink))= post.title
+
+mixin recent()
+  if site.posts.toArray().length>2
+    aside.sidenav
+      div.recentposts
+        h2 Recent Posts:
+        ul.article-list
+          each post in site.posts.sort('-date').limit(5).toArray()
+            if post.title != page.title
+              li
+                a(href=url_for(post.permalink))= post.title
+mixin music()
+  div#musicbar
+    iframe(frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=40 src="")
+
+mixin picbar()
+  aside.aside
+    div.transparent
+    i.reloadimage.fa.fa-refresh.fa-1x
+    div.location
+      span
+      a.location-icon(href='javascript:customLocation()')
+        i.fa.fa-location-arrow.fa-1x
+        form(action="javascript:updateLocation()")
+          input#cLocation(placeholder="输入城市拼音或英文")
+    h2.weather-cn
+      span
+    h3.weather-en
+      span
+
+mixin tipme()
+  aside.tipme.special
+    a.tipme(href="/blog/tipme") If you like my work, buy me a soda or send me a book ! ^_^
+
+mixin tagbar()
+  nav.cate-bar
+    ul.tags
+      a(href="javascript:;" data-rel="All" class="filter tag active") All
+      - var tags = []
+      - page.posts.toArray().map(function(item){item.tags.toArray().map(function(i){if(tags.indexOf(i.name)==-1){tags.push(i.name)}})})
+      each tag in tags
+        a(href="javascript:;" data-rel="#{ tag.replace(/ /g,'-') }" class="filter tag")= tag
+
+mixin catebar()
+  nav
+    ul.article-cate
+      - var active = (is_home())?"on":""
+      li(class="#{active}")
+        a(href="#{ config.url }/")
+          span Blog
+      - site.categories.each(function(cate){
+      if cate.name.toLowerCase() != "blog"
+        li
+          a(href=url_for("categories/"+cate.name) style="width:70px;")
+            = cate.name[0].toUpperCase() + cate.name.slice(1)
+      - })
+      //li
+      //  a(href="/" style="width:70px;") Portfolio
+      li.search
+        input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
+
+mixin summary()
+  - var authors = theme.authors
+  summary.title-excerpt
+    if item.excerpt
+      = item.excerpt
+    else if item.language == "en"
+      = strip_html(item.content).slice(0,300) + "..."
+    else
+      = strip_html(item.content).slice(0,160) + "..."
+  div.post-info
+    span.author
+      i.fa.fa-user
+      - var author = item.author || "taoalpha"
+      a(href=authors[author].web) #{ authors[author].display_name }
+    span.category
+      i.fa.fa-briefcase
+      each cat in item.categories.toArray()
+        a(href=url_for("categories/"+cat.name)) #{ cat.name }
+    span.tags
+      i.fa.fa-tags
+      each tag in item.tags.toArray()
+        a(href=url_for("tags/"+tag.name.replace(/ /g,'-'))) #{ tag.name }
+    span.postdate
+      i.fa.fa-history 
+      = date(item.date,'dd, MMMM D, YYYY')
+    span.readspeed
+      i.fa.fa-clock-o
+      = Math.floor((strip_html(item.content).length/350)) + " 分钟读完"
+    span.viewcount

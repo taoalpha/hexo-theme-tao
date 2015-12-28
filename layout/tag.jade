@@ -1,9 +1,11 @@
 extends partial/layout
 
 block container
-  include partial/picbar
+  include mixins/widget
+  +picbar()
   section.index-content(class="#{ page.pname }")
-    include partial/catebar
+    include mixins/widget
+    +catebar()
     include mixins/post
     +posts()
     include mixins/paginator

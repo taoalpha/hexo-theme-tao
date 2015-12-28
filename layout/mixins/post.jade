@@ -10,7 +10,8 @@ mixin posts()
               - var update = item.content.indexOf("gotsomeupdateshere")>-1 ? "showupdate":""
               a.post-title-link(class= update href= url_for(item.path))
                 != item.title
-            include ../partial/summary
+            include widget
+            +summary()
       - })
 
 mixin post(item)
@@ -29,4 +30,5 @@ mixin post(item)
       span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" 分钟读完"
     !=item.content
     if item.pname != "tipme"
-      include ../partial/tipme
+      include widget
+      +tipme()
