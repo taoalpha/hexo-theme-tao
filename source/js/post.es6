@@ -65,14 +65,13 @@ $( () => {
       for (var i = 0;i<h2.length;i++){
         tmpl += "<li><a href='#' data-id=" + h2[i].id + ">" + h2[i].name + "</a></li>";
         if (h3[i] != null) {
-          for(var j = 0;j<h3.length;j++){
+          for(var j = 0;j<h3[i].length;j++){
             if (h3[i][j]) {
               tmpl += "<li class='h3'><a href='#' data-id=" + h3[i][j].id + ">" + h3[i][j].name + "</a></li>";
             }
           }
         }
       }
-      console.log(tmpl)
       return tmpl += '</ul>';
     };
     var genIndex = function() {
@@ -105,7 +104,6 @@ $( () => {
         return timers[uniqueId] = setTimeout(callback, ms);
       };
     })();
-    console.log($('.entry h2').length)
     if ($('.entry h2').length >= 1 && !isMobile.any() && !ie6) {
       genIndex();
       $(window).load(function() {

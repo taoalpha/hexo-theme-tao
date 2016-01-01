@@ -3,6 +3,9 @@ meta(name="X-UA-Compatible", content="IE=edge")
 
 - var title = config.title
 - if (page.title && page.title != config.title) {title = page.title +" | "+ config.title}
+- if (is_category()) {title = "Category: "+page.category +" | "+ title}
+- if (is_tag()) {title = "Tag: "+page.tag+" | "+ title}
+
 title 
     block site_title
         = title

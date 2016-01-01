@@ -20,7 +20,7 @@ mixin home()
             a(href='#{loc}')= pcount++
           else
             a(href="#{loc}/page/"+pcount)= pcount++
-        if page.current >=4 && page.current <= page.total -4
+        if page.current >4 && page.current < page.total -4
           em= "..."
           em= page.current
         if pcount < page.total - 3
