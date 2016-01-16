@@ -2,6 +2,9 @@ extends partial/layout
 
 block container
   article#content
+    div#progressbar
+      span.bg
+      span.text
     include mixins/post
     +post(page)
     include mixins/widget

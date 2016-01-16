@@ -1,31 +1,5 @@
 $( () => {
-  var isMobile;
-  isMobile = {
-    Android: function() {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-      return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-      return isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows();
-    }
-  };
-  
   (()=>{
-    var ie6;
-    if ($.browser != null) {
-      ie6 = $.browser.msie && $.browser.version === "6.0";
-    }
     var initHeading = function() {
       var h2, h2index, h3;
       h2 = [];
@@ -104,7 +78,8 @@ $( () => {
         return timers[uniqueId] = setTimeout(callback, ms);
       };
     })();
-    if ($('.entry h2').length >= 1 && !isMobile.any() && !ie6) {
+    //if ($('.entry h2').length >= 1 && !isMobile.any() && !ie6) {
+    if ($('.entry h2').length >= 1) {
       genIndex();
       $(window).load(function() {
         var menuIndexLeft, menuIndexTop, scrollTop;
@@ -165,4 +140,22 @@ $( () => {
     }
     return $('#menuIndex').css('max-height', $(window).height() - 80);
   })();
+  // show the progress for reading
+  
+  ( () => {
+    $(window).scroll( () => {
+      if(window.scrollY > 220){
+        var percentage = Math.ceil( ( (window.scrollY - 200 + $(window).height()) / $('section.entry').height() )*100 )
+        if(percentage<100){
+          $('div#progressbar').fadeIn(300).find('span.text').text(percentage+"% read")
+          $('div#progressbar').fadeIn(300).find('span.bg').css({width:percentage+"% read"})
+        }else{
+          $('div#progressbar').fadeOut(300)
+        }
+      }else{
+        $('div#progressbar').fadeOut(300)
+      }
+    })
+  })()
+
 })

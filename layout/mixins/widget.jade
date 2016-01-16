@@ -95,12 +95,11 @@ mixin catebar()
           span Blog
       - site.categories.each(function(cate){
       if cate.name.toLowerCase() != "blog"
-        li
+        - var ac = is_category() ? page.category.toLowerCase() == cate.name.toLowerCase() ? "on":"" : ""
+        li(class="#{ac}")
           a(href=url_for("categories/"+cate.name) style="width:70px;")
             = cate.name[0].toUpperCase() + cate.name.slice(1)
       - })
-      //li
-      //  a(href="/" style="width:70px;") Portfolio
       li.search
         input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
 
@@ -109,10 +108,10 @@ mixin summary()
   summary.title-excerpt
     if item.excerpt
       = item.excerpt
-    else if item.language == "en"
-      = strip_html(item.content).slice(0,300) + "..."
-    else
+    else if item.language == "zh"
       = strip_html(item.content).slice(0,160) + "..."
+    else
+      = strip_html(item.content).slice(0,320) + "..."
   div.post-info
     span.author
       i.fa.fa-user

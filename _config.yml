@@ -17,7 +17,7 @@ favicon: favicon.png
 logo: favicon.png
 
 # google-analytics:
-#ga: UA-46725017-2
+ga: UA-46725017-2
 # baidu-analytics:
 ba: 
 
@@ -66,3 +66,9 @@ authors:
     email: lukehoban@gmail.com
     web: http://blogs.msdn.com/lukeh
     github: lukehoban
+  Dmitry Soshnikov:
+    display_name: Dmitry Soshnikov
+    avatar: https://avatars0.githubusercontent.com/u/244010?v=3&s=96
+    email: dmitry.soshnikov@gmail.com
+    web: http://dmitrysoshnikov.com
+    github: DmitrySoshnikov
