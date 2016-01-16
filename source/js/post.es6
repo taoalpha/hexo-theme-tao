@@ -148,7 +148,7 @@ $( () => {
         var percentage = Math.ceil( ( (window.scrollY - 200 + $(window).height()) / $('section.entry').height() )*100 )
         if(percentage<100){
           $('div#progressbar').fadeIn(300).find('span.text').text(percentage+"% read")
-          $('div#progressbar').fadeIn(300).find('span.bg').css({width:percentage+"% read"})
+          $('div#progressbar').fadeIn(300).find('span.bg').css({width:percentage+"%"})
         }else{
           $('div#progressbar').fadeOut(300)
         }
