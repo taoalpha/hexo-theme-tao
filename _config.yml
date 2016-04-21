@@ -40,17 +40,17 @@ og:
 # social links
 social:
   facebook:
-    url: http://facebook.com/zzgary/
+    url: https://facebook.com/zzgary/
     img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/facebook-32.png
   github:
-    url: http://github.com/taoalpha/
+    url: https://github.com/taoalpha/
     img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/github-32.png
   portfolio:
-    url: http://taoalpha.me
+    url: https://taoalpha.me
     img: https://cdn3.iconfinder.com/data/icons/colore-sociale/32/mewally_32x32.png
   douban:
-    url: http://douban.com/people/129154019
-    img: http://img3.douban.com/favicon.ico
+    url: https://douban.com/people/129154019
+    img: https://img3.doubanio.com/favicon.ico
 
 # authors
 authors:
@@ -58,7 +58,7 @@ authors:
     display_name: TaoAlpha
     avatar: https://avatars3.githubusercontent.com/u/4335753?v=3&s=40
     email: iamzhoutao92@gmail.com
-    web: http://taoalpha.me
+    web: https://taoalpha.me
     github: taoalpha
   Luke Hoban:
     display_name: Luke Hoban

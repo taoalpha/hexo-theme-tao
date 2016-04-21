@@ -67,6 +67,7 @@ window.getLocation = () => {
   var cLocation = $.cookie("cLocation")
   var path_prefix = location.pathname.split("/")[2]
   var weatherImgUrl = $.cookie(path_prefix+"weatherImgUrl")
+  var enableLocation= $.cookie("enableLocation") === 0 ? 0 : 1
   if(!weatherImgUrl){
     randomImage(path_prefix)
   }else{
@@ -79,10 +80,12 @@ window.getLocation = () => {
     updateWeather(cLocation,"cityname")
     return
   }
-  if (navigator.geolocation){
+  if (enableLocation && navigator.geolocation){
+    $.cookie("enableLocation",1);
     navigator.geolocation.getCurrentPosition(updateWeather,showError)
   }else{
-    _alert("Geolocation is not supported by this browser.")
+    //_alert("Geolocation is not supported by this browser.")
+    updateWeather("beijing", "cityname")
   }
 }
 
@@ -91,6 +94,7 @@ window.showError = (e) => {
   switch (e.code) {
     case e.PERMISSION_DENIED:
       console.log("You denied the request for Geolocation.")
+      $.cookie("enableLocation",0);
       updateWeather("beijing", "cityname")
       break;
     case e.POSITION_UNAVAILABLE:
@@ -127,6 +131,7 @@ window.updateWeather = (position, flag) =>{
     updateWeatherPart(position);
     return;
   } else {
+    // weatherUrl = "https://api.forecast.io/forecast/c49a1a7d7342cd7024ca377c47c62966/" + position.coords.latitude + "," + position.coords.longitude + "&lang=zh&exclude=minutely,hourly,daily,alerts,flags";
     weatherUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
   }
   
@@ -136,7 +141,7 @@ window.updateWeather = (position, flag) =>{
     timeout: 1000 * 3,
     success: (data) => {
       $.cookie("weatherData", JSON.stringify(data), {
-        expires: 0.05,
+        expires: 0.3,
         path: '/'
       });
       return updateWeatherPart(data);
@@ -183,13 +188,14 @@ window.randomTags = (flag) =>{
 // Create random image for image frame.
 window.randomImage = (path) => {
   var topwallppr = "https://api.desktoppr.co/1/wallpapers/random"
-  var dailywallppr = "http://www.dailywallppr.com/img/#{Math.floor(Math.random()*2320+1)}.jpg"
+  var dailywallppr = "https://www.dailywallppr.com/img/#{Math.floor(Math.random()*2320+1)}.jpg"
   $.ajax({
     url: topwallppr,
     dataType: 'jsonp',
     timeout: 1000 * 3,
     success: (data) => {
-      $(".aside").css("background-image", "url(" + data.response.image.url + ")");
+      // TODO: change to https
+      $(".aside").css("background-image", "url(" + data.response.image.url.replace("http:","https:") + ")");
       return $.cookie(path + "weatherImgUrl", data.response.image.url, {
         expires: 0.05,
         path: '/blog'

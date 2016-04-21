@@ -27,7 +27,7 @@ mixin post(item)
         span= theme.authors[author].display_name
       span= date(item.date)
       span.wordage= strip_html(item.content).length + "字"
-      span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" 分钟读完"
+      span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" minutes to read"
     !=item.content
     if item.pname != "tipme"
       include widget

@@ -6,6 +6,18 @@ meta(name="X-UA-Compatible", content="IE=edge")
 - if (is_category()) {title = "Category: "+page.category +" | "+ title}
 - if (is_tag()) {title = "Tag: "+page.tag+" | "+ title}
 
+// redirect to https by default if we already have weather data
+//- if (cache){
+//  script
+//    | if (document.cookie.search("weatherData") == -1 && window.location.protocol != "http:"){
+//    |   window.location.protocol = "http";
+//    | }
+//    | if (("taoalpha.me" == window.location.host) && (window.location.protocol != "https:") && document.cookie.search("weatherData") != -1) {
+//    |   window.location.protocol = "https";
+//    | }
+//- }
+
+
 title 
     block site_title
         = title
@@ -16,6 +28,7 @@ meta(name="viewport", content="width=device-width, initial-scale=1")
 // open graph part
 each val,key in theme.og
   meta(property='og:'+'#{key}', content='#{val}')
+
 
 link(rel="short icon", href=url_for(theme.favicon))
 link(rel="stylesheet", href=url_for("css/default.css"))

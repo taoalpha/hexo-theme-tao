@@ -1,0 +1,49 @@
+.home-menu-icon,.entry {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.index-content ul.article-cate li{
+  animation-name: fadeInLeft;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.index-content .cate-bar .tags .tag{
+  animation-name: fadeInLeft;
+  animation-delay: 0.3s;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.index-content .article-list li.post,.sidenav{
+  animation-name: fadeInDown;
+  animation-delay: 0.6s;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+@for $item from 1 through 10{
+ .index-content .article-list li.post:nth-child(#{$item}){ 
+    animation-delay: $item * 0.8s; 
+  }
+} 
+@keyframes fadeInLeft{
+  from {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeInDown{
+  from {
+    opacity: 0;
+    transform: translate3d(0%, -50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -2,6 +2,7 @@
 @import "vendor/_reset";
 @import "mixins/customize";
 @import "syntax";
+@import "vendor/animation";
 
 $grayColor : #999;
 $sidebarbg : #000;
@@ -70,6 +71,49 @@ pre span{line-height:15px;;}
     font-size:22px;
     line-height:50px;
   }
+}
+
+/****** twinkling *******/
+
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
+.stars {
+  background:#000 url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+}
+.twinkling{
+  background:transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+  z-index: -10;
+  -moz-animation:move-twink-back 200s linear infinite;
+  -ms-animation:move-twink-back 200s linear infinite;
+  -o-animation:move-twink-back 200s linear infinite;
+  -webkit-animation:move-twink-back 200s linear infinite;
+  animation:move-twink-back 200s linear infinite;
+}
+.stars, .twinkling{
+  z-index:-10;
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
 }
 
 /****************entry style**************/
