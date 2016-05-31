@@ -311,6 +311,11 @@ pre span{line-height:15px;;}
       border-bottom: 1px solid #fff;
     }
   }
+  .hello{
+    position: absolute;
+    top: 60px;
+    left: 50px;
+  }
   .weather-en {
     position:absolute;
     bottom:20px;
@@ -335,7 +340,11 @@ pre span{line-height:15px;;}
 /****************picbar style**************/
 .index-content {
   height:100%;
-  margin-left:28%; padding-right:10%;
+  margin-left:28%; 
+  @media screen and (min-width: 1750px){
+    margin-left:500px;
+  }
+  padding-right:10%;
   &.mylinks{
     padding:0px;
   }

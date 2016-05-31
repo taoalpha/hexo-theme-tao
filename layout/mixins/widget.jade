@@ -68,6 +68,8 @@ mixin picbar()
         i.fa.fa-location-arrow.fa-1x
         form(action="javascript:updateLocation()")
           input#cLocation(placeholder="输入城市拼音或英文")
+    h2.hello
+      span
     h2.weather-cn
       span
     h3.weather-en
@@ -130,5 +132,5 @@ mixin summary()
       = date(item.date,'dd, MMMM D, YYYY')
     span.readspeed
       i.fa.fa-clock-o
-      = Math.floor((strip_html(item.content).length/350)) + " 分钟读完"
+      = Math.floor((strip_html(item.content).length/350)) + " minutes to read"
     span.viewcount

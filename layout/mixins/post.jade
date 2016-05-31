@@ -26,7 +26,7 @@ mixin post(item)
           img(src="#{ theme.authors[author].avatar }" alt="100")
         span= theme.authors[author].display_name
       span= date(item.date)
-      span.wordage= strip_html(item.content).length + "字"
+      span.wordage= strip_html(item.content).length + " words"
       span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" minutes to read"
     !=item.content
     if item.pname != "tipme"

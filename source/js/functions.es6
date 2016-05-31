@@ -24,7 +24,6 @@ window.alert = (msg,showItNow) => {
 if(!$.cookie('debugMode')){
   $.cookie('debugMode',0)
 }
-window.debugMode = $.cookie('debugMode')
 location.search.replace("?",'').split('&').forEach((item)=>{
   var subs = item.split('=')
   if(subs[0]=='debug' && subs[1] == 'on'){
@@ -35,6 +34,9 @@ location.search.replace("?",'').split('&').forEach((item)=>{
     window.debugMode = 0
   }
 })
+
+// get the latest cookie
+window.debugMode = $.cookie('debugMode')
 
 // if in debug mode, print all log on the page
 
@@ -464,4 +466,17 @@ window.showAlert = (status,msg,duration) =>{
     duration = 8000;
   }
   $('div.notification').stop().fadeIn().removeClass('fail success alert').addClass(status).html(msg).show().fadeOut(duration);
+}
+
+window.passwordNeeded = () => {
+  let content = $('section.entry').html();
+  $('section.entry').html('').css({
+    height: 500
+  });
+  let holywords = "U2FsdGVkX18ht85IwrbNtkElznGrxrhg6IGhPbhKcmc=",
+    key = prompt("This post needs password to see:"),
+    pwd = CryptoJS.AES.decrypt(holywords,key).toString(CryptoJS.enc.Utf8);
+  if (key != null && pwd == "989398") {
+    $('section.entry').html(content);
+  }
 }
