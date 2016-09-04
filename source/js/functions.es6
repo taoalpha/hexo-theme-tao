@@ -469,14 +469,14 @@ window.showAlert = (status,msg,duration) =>{
 }
 
 window.passwordNeeded = () => {
-  let content = $('section.entry').html();
-  $('section.entry').html('').css({
-    height: 500
-  });
-  let holywords = "U2FsdGVkX18ht85IwrbNtkElznGrxrhg6IGhPbhKcmc=",
-    key = prompt("This post needs password to see:"),
-    pwd = CryptoJS.AES.decrypt(holywords,key).toString(CryptoJS.enc.Utf8);
-  if (key != null && pwd == "989398") {
-    $('section.entry').html(content);
-  }
+  let content = $('div.entry-content').html();
+  $('div.entry-content').html('<p>Sorry, You need a password to see this post :) </p><p>This is a private post, and only people invited can watch, do not try to decrypt it, thanks for your cooperation.</p>');
+  setTimeout( () => {
+    let holywords = "U2FsdGVkX18ht85IwrbNtkElznGrxrhg6IGhPbhKcmc=",
+      key = prompt("This post needs password to see:"),
+      pwd = CryptoJS.AES.decrypt(holywords,key).toString(CryptoJS.enc.Utf8);
+    if (key != null && pwd == "989398") {
+      $('div.entry-content').html(content);
+    }
+  }, 1000); 
 }

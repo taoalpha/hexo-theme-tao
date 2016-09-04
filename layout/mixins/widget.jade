@@ -107,7 +107,8 @@ mixin catebar()
 
 mixin summary()
   - var authors = theme.authors
-  summary.title-excerpt
+  - var summary_class = item.encrypt ? 'title-excerpt encrypt' : 'title-excerpt'
+  summary(class="#{summary_class}")
     if item.excerpt
       = item.excerpt
     else if item.language == "zh"

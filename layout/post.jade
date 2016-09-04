@@ -23,7 +23,7 @@ block scripts
   if page.pname == "tipme"
     script(type="text/javascript").
       showMyWishBooks()
-  if page.encrpt
+  if page.encrypt
     script(src=url_for("js/aes.js"))
     script(type="text/javascript").
       passwordNeeded()
