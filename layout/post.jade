@@ -19,9 +19,6 @@ block container
 
 block scripts
   script(src=url_for("js/post.js"))
-  if page.pname == "tipme"
-    script(type="text/javascript").
-      showMyWishBooks()
   if page.encrypt
     script(src=url_for("js/aes.js"))
     script(type="text/javascript").

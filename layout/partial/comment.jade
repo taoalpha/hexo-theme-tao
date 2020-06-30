@@ -1,18 +1,35 @@
-if theme.comments.duoshuo
+if config.comments == 'gitment'
+  link(rel="stylesheet" href='#{theme.comments.gitment.css}')
+  script(src='#{theme.comments.gitment.js}')
   .comments
-    .ds-thread(data-thread-key=page.path, data-title=page.title, data-url=page.permalink, data-author-key='1')
     script.
-      var duoshuoQuery = {short_name:"taoalpha"};
-      (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-      })();
-     
-if theme.comments.disqus
+      const gitment = new Gitment({
+        id: '#{page.path}',
+        owner: '#{config.gitment.owner}',
+        repo: '#{config.gitment.repo}',
+        oauth: {
+          client_id: '#{config.gitment.client_id}',
+          client_secret: '#{config.gitment.client_secret}',
+        },
+      });
+      gitment.render(document.querySelector('.comments'));
+
+if config.comments == 'gitalk'
+  link(rel="stylesheet" href='#{theme.comments.gitalk.css}')
+  script(src='#{theme.comments.gitalk.js}')
+  .comments
+    script.
+      const gitalk = new Gitalk({
+        id: '#{page.path}',
+        owner: '#{config.gitalk.owner}',
+        repo: '#{config.gitalk.repo}',
+        clientID: '#{config.gitalk.client_id}',
+        clientSecret: '#{config.gitalk.client_secret}',
+        distractionFreeMode: false,
+      });
+      gitalk.render(document.querySelector('.comments'));
+
+if config.comments == 'disqus'
   .comments
     #disqus_thread
     script.

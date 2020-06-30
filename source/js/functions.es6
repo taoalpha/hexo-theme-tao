@@ -199,7 +199,7 @@ window.randomImage = (path, retry = 0) => {
     success: (data) => {
       $(".aside").css("background-image", "url(" + data.hits[0].largeImageURL + ")");
       return $.cookie(path + "weatherImgUrl", data.hits[0].largeImageURL, {
-        expires: 0.05,
+        expires: 5,
         path: '/blog'
       });
     },
@@ -259,38 +259,6 @@ window.parsePageViewData = (rows) => {
         $(v).find('span.viewcount').html("<i class='fa fa-eye'></i>" + cnt);
       }
     }
-  })
-}
-
-// load my wish books from douban
-window.showMyWishBooks = () => {
-  var bookapi = "https://api.douban.com/v2/book/user/129154019/collections?status=wish&tag=MyWish"
-  $.ajax({
-    url: bookapi,
-    dataType: 'jsonp',
-    timeout: 1000 * 3,
-    success: (data) => {
-      parseBookDatas(data.collections);
-    },
-    error: () => {
-      console.log('Failed to get pageview from Douban!');
-      $.ajax({
-        url: '/blog/api/doubanbooks.json',
-        dataType: 'json',
-        success: function(data) {
-          console.log('Local mybooks.data backup file.');
-          return parseBookDatas(data.collections);
-        }
-      })
-    }
-  })
-}
-
-window.parseBookDatas = (data) => {
-  var template = "<li class='book_item'><a href='__book_url__' alt='__book_alt_title__'><img src='__book_img__'><span>__book_title__</span></a></li>"
-  $.each(data,(key,item) => {
-    var bookitem = template.replace("__book_url__",item.book.alt).replace("__book_alt_title__",item.book.alt_title).replace("__book_title__",item.book.title).replace("__book_img__",item.book.images.large)
-    $('.books').append(bookitem)
   })
 }
 

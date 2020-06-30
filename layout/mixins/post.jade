@@ -30,6 +30,3 @@ mixin post(item)
       span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" minutes to read"
     div.entry-content
       !=item.content
-    if item.pname != "tipme"
-      include widget
-      +tipme()

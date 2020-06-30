@@ -2,9 +2,6 @@ menus:
   # myliks: 
   #   name: mylinks
   #   icon: fa-anchor
-    tipme: 
-      name: tipme
-      icon: fa-gratipay
     search:
       name: search
       icon: fa-search
@@ -18,19 +15,19 @@ logo: favicon.png
 
 # google-analytics:
 ga: UA-46725017-2
-# baidu-analytics:
-ba: 
 
 # settings
 swiftype: true
 
-## for duoshuo
-comments :
-  provider : duoshuo
-  duoshuo :
-    short_name : taoalpha
-    api : 
-      commentCount: "http://api.duoshuo.com/threads/counts.json?short_name=taoalpha&threads="
+comments:
+  gitment: 
+    css: https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css 
+    js: https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js
+  gitalk: 
+    css: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
+    js: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
+
+
 
 og:
   image: http://taoalpha.github.io/images/newblog.jpg
