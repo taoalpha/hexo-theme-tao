@@ -3,7 +3,7 @@ extends partial/layout
 block container
   include mixins/widget
   +picbar()
-  section.index-content(class="#{ page.id }")
+  section.index-content(class="#{ page.name }")
     include mixins/widget
     +catebar()
     +tagbar()

@@ -10,7 +10,7 @@ mixin home()
           else
             a.prev(href=url_for(prev)) « Prev
         - var pcount = 1
-        - var loc = url.replace("/index.html",'').split("/page")[0]
+        - var loc = '/blog'
         - var middle = 4
         - if(page.total < middle){middle = page.total}
         while pcount <= middle

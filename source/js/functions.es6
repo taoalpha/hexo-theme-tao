@@ -188,23 +188,23 @@ window.randomTags = (flag) =>{
 }
 
 // Create random image for image frame.
-window.randomImage = (path) => {
-  var topwallppr = "https://api.desktoppr.co/1/wallpapers/random"
-  var dailywallppr = "https://www.dailywallppr.com/img/#{Math.floor(Math.random()*2320+1)}.jpg"
+const maxRetry = 3;
+window.randomImage = (path, retry = 0) => {
+  const API_KEY = "17273184-9351a5fdb089acc3a105a946c";
+  if (retry > maxRetry) return;
   $.ajax({
-    url: topwallppr,
+    url: "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('nature'),
     dataType: 'jsonp',
     timeout: 1000 * 3,
     success: (data) => {
-      // TODO: change to https
-      $(".aside").css("background-image", "url(" + data.response.image.url.replace("http:","https:") + ")");
-      return $.cookie(path + "weatherImgUrl", data.response.image.url, {
+      $(".aside").css("background-image", "url(" + data.hits[0].largeImageURL + ")");
+      return $.cookie(path + "weatherImgUrl", data.hits[0].largeImageURL, {
         expires: 0.05,
         path: '/blog'
       });
     },
     error: () => {
-      return randomImage(path);
+      return randomImage(path, retry+1);
     }
   })
 }
@@ -244,11 +244,14 @@ window.parsePageViewData = (rows) => {
     var myPath = $(v).find('h2 a').attr('href');
     if (myPath) {
       var len = rows.length, cnt = 0
-      for(var i = 0;i<len;i++){
-        var thatPath = rows[i][0]
-        var queryId = thatPath.indexOf('?')
-        var mainPath = queryId >= 0 ? thatPath.slice(0, queryId) : thatPath
-        if (thatPath === myPath || mainPath === myPath || mainPath === myPath + 'index.html' || myPath === mainPath + 'index.html' || myPath.replace("tech-",'') == thatPath || myPath.replace("tech-",'') == thatPath.replace(".html","/")) {
+      for (var i = 0; i < len; i++) {
+        var gaPath = rows[i][0];
+        var queryId = gaPath.indexOf('?');
+        var mainPath = queryId >= 0 ? gaPath.slice(0, queryId) : gaPath;
+        if (gaPath === myPath || mainPath === myPath
+            || mainPath === myPath + 'index.html' || myPath === mainPath + 'index.html'
+            || ["tech-", "archived-", "tech-archived-", "thoughts-", "readings-"].some(function(prefix) { return myPath.replace(prefix, "") === gaPath || myPath.replace(prefix, "") === gaPath.replace(".html", "/")})
+          ) {
           cnt += parseInt(rows[i][1]);
         }
       }

@@ -93,7 +93,7 @@ mixin catebar()
     ul.article-cate
       - var active = (is_home())?"on":""
       li(class="#{active}")
-        a(href="#{ config.url }/")
+        a(href="/blog")
           span Blog
       - site.categories.each(function(cate){
       if cate.name.toLowerCase() != "blog"
