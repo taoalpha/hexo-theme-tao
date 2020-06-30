@@ -175,11 +175,8 @@ window.updateWeatherPart = (data) => {
 
 // Add limitation for tags and pick 8-10 tags randomly everytime
 
-window.randomTags = (flag) =>{
+window.randomTags = () =>{
   var originArray = $('ul.tags').find('a.tag')
-  if (flag === 'showall') {
-    originArray.show();
-  }
   originArray.eq(0).show();
   for (var i = 0; i <= 10; i++) {
     originArray.eq(Math.floor(Math.random() * originArray.length) + 1).show();
@@ -193,7 +190,7 @@ let topHits;
 function setImage(path, img) {
   $(".aside").css("background-image", "url(" + img.largeImageURL + ")");
   $.cookie(path + "weatherImgUrl", img.largeImageURL, {
-    expires: 5,
+    expires: 0.5,
     path: '/blog'
   });
 }

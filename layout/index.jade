@@ -3,7 +3,7 @@ extends partial/layout
 block container
   include mixins/widget
   +picbar()
-  section.index-content(class="#{ page.name }")
+  section.page-content(class="#{ page.name }")
     include mixins/widget
     +catebar()
     +tagbar()
@@ -15,5 +15,5 @@ block container
 block scripts
   script(type="text/javascript").
     getLocation()
-    randomTags("")
+    randomTags()
     getPageViewCount()

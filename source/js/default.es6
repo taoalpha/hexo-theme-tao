@@ -57,11 +57,11 @@ $ => {
     console.log("music");
     $(this).find('i').toggleClass("rotate");
     if ($('#musicbar').is(':visible')) {
-      $('#musicbar').find('iframe').attr('src', 'http://music.163.com/outchain/player?type=0&id=78822606&auto=0&height=32');
+      $('#musicbar').find('iframe').attr('src', 'https://music.163.com/outchain/player?type=0&id=78822606&auto=0&height=32');
       OpenInNewWindow = false;
       return $('#musicbar').slideUp(300);
     } else {
-      $('#musicbar').find('iframe').attr('src', 'http://music.163.com/outchain/player?type=0&id=78822606&auto=1&height=32');
+      $('#musicbar').find('iframe').attr('src', 'https://music.163.com/outchain/player?type=0&id=78822606&auto=1&height=32');
       OpenInNewWindow = true;
       return $('#musicbar').slideDown(300);
     }

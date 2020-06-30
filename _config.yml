@@ -1,15 +1,3 @@
-menus:
-  # myliks: 
-  #   name: mylinks
-  #   icon: fa-anchor
-    search:
-      name: search
-      icon: fa-search
-      js: 1
-    puzzle: 
-      name: puzzle
-      icon: fa-puzzle-piece
-
 favicon: favicon.png
 logo: favicon.png
 

@@ -3,19 +3,19 @@
   animation-duration: 0.5s;
   animation-fill-mode: both;
 }
-.index-content ul.article-cate li{
+.page-content ul.article-cate li{
   animation-name: fadeInLeft;
   animation-duration: 1s;
   animation-fill-mode: both;
 }
-.index-content .cate-bar .tags .tag{
+.page-content .cate-bar .tags .tag{
   animation-name: fadeInLeft;
   animation-delay: 0.3s;
   animation-duration: 1s;
   animation-fill-mode: both;
 }
 /*
-.index-content .article-list li.post,
+.page-content .article-list li.post,
 */
 .sidenav{
   animation-name: fadeInDown;
@@ -24,7 +24,7 @@
   animation-fill-mode: both;
 }
 @for $item from 1 through 10{
- .index-content .article-list li.post:nth-child(#{$item}){ 
+ .page-content .article-list li.post:nth-child(#{$item}){ 
     animation-delay: $item * 0.5s; 
   }
 } 

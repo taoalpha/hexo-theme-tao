@@ -2,7 +2,7 @@ doctype html
 html(lang=config.language)
   head
     include head
-  - var pname = typeof page.pname == "undefined" ? "blogpost" : page.pname
+  - var pname = page.pname || "post"
   - if(is_home()||is_tag()||is_category()){pname = "blog"}
   body(class="#{pname}")
     include navbar
