@@ -128,13 +128,12 @@ window.updateLocation = () =>{
 window.updateWeather = (position, flag) =>{
   var weatherUrl = ''
   if (flag === "cityname") {
-    weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + position + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
+    weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + position + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
   } else if (flag === "cookie") {
     updateWeatherPart(position);
     return;
   } else {
-    // weatherUrl = "https://api.forecast.io/forecast/c49a1a7d7342cd7024ca377c47c62966/" + position.coords.latitude + "," + position.coords.longitude + "&lang=zh&exclude=minutely,hourly,daily,alerts,flags";
-    weatherUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
+    weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
   }
   
   $.ajax({
@@ -189,19 +188,29 @@ window.randomTags = (flag) =>{
 
 // Create random image for image frame.
 const maxRetry = 3;
+let topHits;
+
+function setImage(path, img) {
+  $(".aside").css("background-image", "url(" + img.largeImageURL + ")");
+  $.cookie(path + "weatherImgUrl", img.largeImageURL, {
+    expires: 5,
+    path: '/blog'
+  });
+}
+
 window.randomImage = (path, retry = 0) => {
-  const API_KEY = "17273184-9351a5fdb089acc3a105a946c";
   if (retry > maxRetry) return;
+  if (topHits && topHits.length) {
+    return setImage(path, topHits[Math.floor(Math.random() * topHits.length)]);
+  }
+  const API_KEY = "17273184-9351a5fdb089acc3a105a946c";
   $.ajax({
     url: "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('nature'),
     dataType: 'jsonp',
     timeout: 1000 * 3,
     success: (data) => {
-      $(".aside").css("background-image", "url(" + data.hits[0].largeImageURL + ")");
-      return $.cookie(path + "weatherImgUrl", data.hits[0].largeImageURL, {
-        expires: 5,
-        path: '/blog'
-      });
+      topHits = data.hits;
+      setImage(path, data.hits[Math.floor(Math.random() * data.hits.length)]);
     },
     error: () => {
       return randomImage(path, retry+1);
