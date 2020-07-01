@@ -3,13 +3,46 @@
 }
 
 body {
+  display: flex;
   color: white;
   background: #2a2f35;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+
+  section.page-content {
+    flex: 1;
+    padding-left: 40px;
+    padding-right: 0px;
+    margin: 0px;
+  }
+
+  @media screen and (max-width: 750px) {
+    section.page-content {
+      flex: 1;
+      padding-left: 0px;
+      padding-right: 0px;
+      margin: 0px;
+      .timeline-top {
+        padding-left: 40px;
+      }
+      .timeline-container {
+        margin: 0 0 0 20px;
+        padding: 0 10px 0px 0px;
+        width: initial;
+      }
+      .timeline-wrapper {
+        margin: 10px 0px 0px 30px;
+        &:before {
+          left: -40px;
+        }
+      }
+    }
+  }
 }
+
+
 
 .clear {
   clear: both;

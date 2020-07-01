@@ -15,15 +15,17 @@ mixin series()
           if post.series == page.series && counter != 6
             if post.title == page.title
               li
-                a.current(href=url_for(post.permalink).replace("/blog/blog/","/blog/") data-id=count++)= post.title
+                a.current(href=url_for(post.permalink) data-id=counter++)= post.title
             else
               li
-                a(href=url_for(post.permalink).replace("/blog/blog/","/blog/") data-id=count++)= post.title
+                a(href=url_for(post.permalink) data-id=counter++)= post.title
 
 mixin related()
   - var posts = []
   - if(page.categories){
-  -   var cat = page.categories.toArray()[0].name
+  -   var categories = page.categories.toArray();
+  -   var cat = categories[0] && categories[0].name
+  -   if (!cat) return;
   -   var existTags = page.tags.toArray().map(function(v){return v.name})
   -   var prePosts = site.categories.findOne({name: cat}).posts
   -   if(prePosts.toArray().length>0){
@@ -42,7 +44,7 @@ mixin related()
       ul.article-list
         each post in posts
           li
-            a(href=url_for(post.permalink).replace("/blog/blog/","/blog/"))= post.title
+            a(href=url_for(post.permalink))= post.title
 
 mixin recent()
   if site.posts.toArray().length>2
@@ -53,7 +55,7 @@ mixin recent()
           each post in site.posts.sort('-date').limit(5).toArray()
             if post.title != page.title
               li
-                a(href=url_for(post.permalink).replace("/blog/blog/","/blog/"))= post.title
+                a(href=url_for(post.permalink))= post.title
 mixin music()
   div#musicbar
     iframe(frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=40 src="")
@@ -108,11 +110,11 @@ mixin catebar()
 mixin summary()
   - var authors = theme.authors
   - var summary_class = item.encrypt ? 'title-excerpt encrypt' : 'title-excerpt'
-  summary(class="#{summary_class}")
+  a.summary(class="#{summary_class}" href= url_for(item.path))
     if item.excerpt
       = item.excerpt
     else if item.language == "zh"
-      = strip_html(item.content).slice(0,160) + "..."
+      = strip_html(item.content).slice(0,120) + "..."
     else
       = strip_html(item.content).slice(0,320) + "..."
   div.post-info

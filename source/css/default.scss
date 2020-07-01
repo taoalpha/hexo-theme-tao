@@ -297,7 +297,7 @@ pre span {
 
     i {
       position: absolute;
-      right: 10px;
+      right: 20px;
       top: 0px;
       line-height: 80px;
     }
@@ -536,15 +536,6 @@ pre span {
 }
 
 /********* layout ********/
-body.timeline {
-  display: flex;
-  section.page-content {
-    flex: 1;
-    padding-left: 40px;
-    padding-right: 0px;
-    margin: 0px;
-  }
-}
 
 /****************page content area**************/
 .page-content {
@@ -625,6 +616,7 @@ body.timeline {
   .title-excerpt {
     color: #717174;
     font-size: 14px;
+    font-weight: 200;
     line-height: 1.8em;
     margin-bottom: 6px;
   }

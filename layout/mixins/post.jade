@@ -17,8 +17,7 @@ mixin posts()
 mixin post(item)
   section.entry
     h1.entry-title
-      a(href=url_for(item.permalink) title="#{ item.title }")
-        != item.title
+      != item.title
     div.meta-top
       - var author = item.author ? item.author:"taoalpha"
       a(href=theme.authors[author].web)
