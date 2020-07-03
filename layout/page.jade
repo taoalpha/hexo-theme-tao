@@ -8,8 +8,10 @@ block container
     != page.content.replace(/<br>/g,'')
 
 block scripts
-  script(type="text/javascript").
-    getLocation()
+  if pname == "blog" || pname == "post"
+    script(type="text/javascript").
+      getLocation()
+      randomImage()
   if page.function == "log-analyse"
     script(type="text/javascript").
       getGALogFile()

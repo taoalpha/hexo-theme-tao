@@ -1,12 +1,3 @@
-favicon: favicon.png
-logo: favicon.png
-
-# google-analytics:
-ga: UA-46725017-2
-
-# settings
-swiftype: true
-
 comments:
   gitment: 
     css: https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css 
@@ -15,45 +6,5 @@ comments:
     css: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
     js: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
 
-
-
-og:
-  image: http://taoalpha.github.io/images/newblog.jpg
-  description: TaoAlpha's hexo Blog
-  type: website
-
-# social links
-social:
-  facebook:
-    url: https://facebook.com/zzgary/
-    img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/facebook-32.png
-  github:
-    url: https://github.com/taoalpha/
-    img: https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/github-32.png
-  portfolio:
-    url: https://taoalpha.github.io
-    img: https://cdn3.iconfinder.com/data/icons/colore-sociale/32/mewally_32x32.png
-  douban:
-    url: https://douban.com/people/129154019
-    img: https://img3.doubanio.com/favicon.ico
-
-# authors
-authors:
-  taoalpha:
-    display_name: TaoAlpha
-    avatar: https://avatars3.githubusercontent.com/u/4335753?v=3&s=40
-    email: iamzhoutao92@gmail.com
-    web: https://taoalpha.github.io
-    github: taoalpha
-  Luke Hoban:
-    display_name: Luke Hoban
-    avatar: https://avatars0.githubusercontent.com/u/223467?v=3&s=460 
-    email: lukehoban@gmail.com
-    web: http://blogs.msdn.com/lukeh
-    github: lukehoban
-  Dmitry Soshnikov:
-    display_name: Dmitry Soshnikov
-    avatar: https://avatars0.githubusercontent.com/u/244010?v=3&s=96
-    email: dmitry.soshnikov@gmail.com
-    web: http://dmitrysoshnikov.com
-    github: DmitrySoshnikov
+render:
+  ts: tsconfig.json

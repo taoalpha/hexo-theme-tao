@@ -2,35 +2,33 @@ meta(charset="utf-8")
 meta(name="X-UA-Compatible", content="IE=edge")
 
 - var title = config.title
+- var desc = config.description
 - if (page.title && page.title != config.title) {title = page.title +" | "+ config.title}
-- if (is_category()) {title = "Category: "+page.category +" | "+ title}
+- if (page.description) {desc = page.description}
+- if (is_category()) {title = "Category: "+page.category +" | "+ title; desc = `Posts under category: ${page.category};`}
 - if (is_tag()) {title = "Tag: "+page.tag+" | "+ title}
-
-// redirect to https by default if we already have weather data
-//- if (cache){
-//  script
-//    | if (document.cookie.search("weatherData") == -1 && window.location.protocol != "http:"){
-//    |   window.location.protocol = "http";
-//    | }
-//    | if (("taoalpha.github.io" == window.location.host) && (window.location.protocol != "https:") && document.cookie.search("weatherData") != -1) {
-//    |   window.location.protocol = "https";
-//    | }
-//- }
-
+- if (is_tag()) {title = "Tag: "+page.tag+" | "+ title; desc = `Posts with tag: ${page.tag}`}
 
 title 
     block site_title
         = title
 block description
-    meta(name="description", content= config.description ? config.description : 'A Blog Powered By Hexo')
+    meta(name="description", content=desc)
 meta(name="viewport", content="width=device-width, initial-scale=1")
 
 // open graph part
-each val,key in theme.og
-  meta(property='og:'+'#{key}', content='#{val}')
+if config.og
+  meta(property='og:title', content='#{title}')
+  meta(property='og:description', content='#{desc}')
+  meta(property='og:url', content='#{page.url}')
+  each val,key in config.og
+    meta(property='og:'+'#{key}', content='#{val}')
 
 
-link(rel="short icon", href=url_for(theme.favicon))
+link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css")
+link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css")
+link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css")
+link(rel="short icon", href=url_for(config.favicon))
 link(rel="stylesheet", href=url_for("css/default.css"))
 if page.pname == "timeline"
   link(rel="stylesheet", href=url_for("css/timeline.css"))

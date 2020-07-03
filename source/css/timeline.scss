@@ -3,7 +3,6 @@
 }
 
 body {
-  display: flex;
   color: white;
   background: #2a2f35;
   font-family: Arial, Helvetica, sans-serif;
@@ -13,27 +12,25 @@ body {
 
   section.page-content {
     flex: 1;
-    padding-left: 40px;
-    padding-right: 0px;
-    margin: 0px;
   }
 
   @media screen and (max-width: 750px) {
     section.page-content {
       flex: 1;
-      padding-left: 0px;
-      padding-right: 0px;
-      margin: 0px;
+
       .timeline-top {
         padding-left: 40px;
       }
+
       .timeline-container {
         margin: 0 0 0 20px;
         padding: 0 10px 0px 0px;
         width: initial;
       }
+
       .timeline-wrapper {
         margin: 10px 0px 0px 30px;
+
         &:before {
           left: -40px;
         }
@@ -41,8 +38,6 @@ body {
     }
   }
 }
-
-
 
 .clear {
   clear: both;
@@ -53,20 +48,6 @@ body {
 /* ===================== Top ============= */
 
 $top-height:50px;
-
-.timeline-top {
-  font-family: 'lucida grande', 'lucida sans unicode', lucida, helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
-  background: #c95d4f;
-  width: 100%;
-  height: $top-height;
-  color: white;
-
-  h1 {
-    font-size: 1.2em;
-    margin: 0 0 0 20px;
-    line-height: $top-height;
-  }
-}
 
 /* ============ TIMELINE ============= */
 
@@ -96,12 +77,7 @@ $top-height:50px;
     margin: 20px 45px;
     background: #e3edef;
 
-    &:before {
-      content: "\f00c";
-    }
-
-    &:before {
-      font-family: Fontawesome;
+    i {
       width: 20px;
       height: 20px;
       color: #5fb594;
@@ -128,7 +104,6 @@ $top-height:50px;
         color: #1a1d22;
         margin: 4px -5px;
         display: block;
-        font-family: Fontawesome;
         zoom: 3;
       }
 
@@ -137,11 +112,6 @@ $top-height:50px;
         line-height: 70px;
         float: left;
         padding: 0 35px 0 25px;
-
-        &.count {
-          opacity: 0.4;
-          float: right;
-        }
       }
     }
 

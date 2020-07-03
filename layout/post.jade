@@ -3,24 +3,21 @@ extends partial/layout
 block container
   div.stars
   div.twinkling
+  div#progress-bar.hidden
+    span.bg
+ 
   article#content
-    div#progressbar
-      span.bg
-    include mixins/post
-    +post(page)
-    include mixins/widget
-    +searchbox()
-    +series()
-    +related()
-    +recent()
-    include mixins/paginator
-    +post()
+    div.main
+      include mixins/post
+      +post(page)
+      include mixins/widget
+      div.widgets
+        +catalog()
+        +searchbox()
+        +series()
+        +related()
+        +recent()
     include partial/comment
 
 block scripts
   script(src=url_for("js/post.js"))
-  if page.encrypt
-    script(src=url_for("js/aes.js"))
-    script(type="text/javascript").
-      passwordNeeded()
-

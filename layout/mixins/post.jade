@@ -20,10 +20,10 @@ mixin post(item)
       != item.title
     div.meta-top
       - var author = item.author ? item.author:"taoalpha"
-      a(href=theme.authors[author].web)
+      a(href=config.authors[author].web)
         div.avatar(style="display:inline-block;")
-          img(src="#{ theme.authors[author].avatar }" alt="100")
-        span= theme.authors[author].display_name
+          img(src="#{ config.authors[author].avatar }" alt="100")
+        span= config.authors[author].display_name
       span= date(item.date)
       span.wordage= strip_html(item.content).length + " words"
       span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" minutes to read"

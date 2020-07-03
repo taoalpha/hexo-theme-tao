@@ -1,9 +1,11 @@
-@import "../vendors/font-awesome/scss/font-awesome";
 @import "vendor/_reset";
 @import "mixins/customize";
 @import "syntax";
-@import "vendor/animation";
 
+$google_green: #0F9D58;
+$google_red: #DB4437;
+$google_yellow: #F4B400;
+$google_blue: #4285F4;
 $grayColor : #999;
 $sidebarbg : #000;
 $lightgreen : #4aab5e;
@@ -28,7 +30,7 @@ body {
 /***********default settings**********/
 .hide,
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 a,
@@ -40,6 +42,7 @@ a:hover {
 body {
   font-family: "Open Sans", serif;
   font-size: 16px;
+  display: flex;
 }
 
 h2 {
@@ -106,17 +109,9 @@ pre span {
 }
 
 /************layout style*****************/
-#content {
-  width: 1100px;
-  margin: 90px auto 60px;
-  min-height: 400px;
-  height: auto !important;
-  height: 400px;
-}
 
-#progressbar {
-  width: 780px;
-  display: none;
+#progress-bar {
+  width: 100%;
   position: fixed;
   height: 10px;
   text-align: center;
@@ -124,6 +119,7 @@ pre span {
   color: #000;
   top: 0px;
   z-index: 10000;
+  overflow: hidden;
 
   span.bg {
     height: 100%;
@@ -141,80 +137,49 @@ pre span {
   }
 }
 
-/****** twinkling *******/
-
-@keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-webkit-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-moz-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-ms-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-.stars {
-  background: #000 url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
-}
-
-.twinkling {
-  background: transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
-  z-index: -10;
-  -moz-animation: move-twink-back 200s linear infinite;
-  -ms-animation: move-twink-back 200s linear infinite;
-  -o-animation: move-twink-back 200s linear infinite;
-  -webkit-animation: move-twink-back 200s linear infinite;
-  animation: move-twink-back 200s linear infinite;
-}
-
-.stars,
-.twinkling {
-  z-index: -10;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 /****************entry style**************/
+#content {
+  display: flex;
+  padding: 100px 80px;
+  flex-direction: column;
+  overflow: scroll;
+
+  .main {
+    flex-direction: row;
+    display: flex;
+
+    .entry {
+      width: 80%;
+      margin-right: 10px;
+      background: #fff;
+      padding: 30px 0;
+
+      >* {
+        padding: 0px 30px;
+        background: #fff;
+      }
+
+      .entry-content {
+        padding-bottom: 30px;
+      }
+    }
+  }
+
+  .comments {
+    padding: 0px 30px;
+    margin-right: 310px;
+    background: #fff;
+  }
+
+  .widgets {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .sidenav {
   width: 300px;
   background: #fff;
-  float: right;
   padding: 20px;
   margin-bottom: 50px;
   @include box-shadow(0, 1px, 4px, #ccc);
@@ -249,7 +214,7 @@ pre span {
     color: #222;
   }
 
-  div.relatedposts {
+  div.related-posts {
     margin-bottom: 30px;
   }
 
@@ -305,10 +270,19 @@ pre span {
     i.collapse {
       display: none;
     }
+
+    &.expanded {
+      i.collapse {
+        display: block;
+      }
+
+      i.expand {
+        display: none;
+      }
+    }
   }
 
   ul {
-    display: none;
     margin: 0px 10px 0px 30px;
   }
 
@@ -331,16 +305,6 @@ pre span {
       background-color: #fff;
     }
   }
-}
-
-.entry,
-.comments {
-  margin-bottom: 80px;
-  width: 780px;
-  float: left;
-  background: #fff;
-  padding: 30px;
-  @include box-shadow(0, 2px, 6px, #ccc);
 }
 
 .entry {
@@ -455,10 +419,7 @@ pre span {
 
 /****************picbar style**************/
 .aside {
-  position: fixed;
   min-width: 350px;
-  top: 0;
-  left: 0;
   width: 28%;
   height: 100%;
   max-width: 500px;
@@ -468,6 +429,7 @@ pre span {
   background-position: 50% 50%;
   color: #fff;
   z-index: 1;
+  position: relative;
 
   .transparent {
     background: rgba(0, 0, 0, 0.3);
@@ -475,9 +437,9 @@ pre span {
     height: 100%;
   }
 
-  i.reloadimage {
+  .reload-image {
     position: absolute;
-    left: 55px;
+    left: 15px;
     display: block;
     top: 20px;
     cursor: pointer;
@@ -490,7 +452,6 @@ pre span {
     font-size: 20px;
 
     #cLocation {
-      display: none;
       position: absolute;
       right: 12px;
       width: 105%;
@@ -525,6 +486,7 @@ pre span {
   }
 
   .location-icon {
+    cursor: pointer;
     color: #fff;
     font-size: 14px;
     margin-left: 6px;
@@ -539,26 +501,18 @@ pre span {
 
 /****************page content area**************/
 .page-content {
-  height: 100%;
-  margin-left: 28%;
-
-  @media screen and (min-width: 1750px) {
-    margin-left: 500px;
-  }
-
-  padding-right:10%;
+  overflow: scroll;
 
   img {
     max-width: 120%;
   }
 
   ul {
-    padding-left: 35px;
+    padding-left: 20px;
   }
 
   .article-list {
     clear: both;
-    padding-left: 40px;
 
     li.post {
       margin-bottom: 20px;
@@ -621,15 +575,10 @@ pre span {
     margin-bottom: 6px;
   }
 
-  .title-excerpt.encrypt {
-    color: transparent;
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  }
-
   .post-info {
     color: #bbb;
     font-size: 13px;
-    margin-bottom: 20px;
+    padding: 5px 0px;
 
     i,
     span {
@@ -656,7 +605,6 @@ pre span {
   ul.article-cate {
     height: 40px;
     line-height: 40px;
-    padding-left: 25px;
     border-bottom: 1px solid #ccc;
     text-align: center;
 
@@ -723,9 +671,7 @@ pre span {
     .tags {
       display: inline-block;
 
-      //margin: 30px 0px 20px 33px;
       .tag {
-        display: none;
         float: left;
         padding: 5px 10px;
         @include rounded(14px);
@@ -913,10 +859,6 @@ button#gosearch {
 }
 
 /**************目录导航**************/
-#menuIndex {
-  overflow: auto;
-}
-
 #menuIndex a {
   display: block;
   padding: 2px 0;
@@ -953,21 +895,13 @@ button#gosearch {
 }
 
 .home-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   z-index: 2;
-  width: 40px;
   height: 100%;
   background-color: $sidebarbg;
   @include box-shadow(-1px, 0px, 5px, #fff);
-}
-
-.home-icon-con.downside {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
 }
 
 .home-menu-icon {
@@ -977,7 +911,15 @@ button#gosearch {
   font-size: 16px;
   line-height: 40px;
   height: 40px;
+  width: 40px;
   background: $sidebarbg;
+  cursor: pointer;
+}
+
+a.brand {
+  background-color: $lightgreen;
+  color: #fff;
+  text-decoration: none;
 }
 
 .home-follow {
@@ -1005,7 +947,6 @@ button#gosearch {
   background: $sidebarbg;
   padding: 10px 0 9px;
   text-align: center;
-  display: none;
 }
 
 .home-contact a {
@@ -1017,95 +958,36 @@ button#gosearch {
   width: 20px;
 }
 
-/**************Music Bar**************/
-#togglemusic i.rotate {
-  @include animation(selfrotation 15s linear infinite);
-}
-
-#musicbar {
-  display: none;
-  position: absolute;
-  bottom: 0px;
-  left: 32px;
-}
-
-@include keyframes(selfrotation) {
-  from {
-    @include rotate(0deg)
-  }
-
-  to {
-    @include rotate(360deg)
-  }
-}
-
-
-/*********************Contributions*************/
-
-#contribution {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0px;
-  background-color: rgba(255, 255, 255, 1);
-  z-index: 3;
-  padding: 5% 10% 2% 10%;
-
-  #contributionContent {
-    width: 100%;
-    outline: none;
-    height: 90%;
-    border: none;
-    font-size: 20px;
-    line-height: 25px;
-  }
-
-  input[type='email'] {
-    width: 300px;
-    outline: none;
-    height: 40px;
-    position: fixed;
-    top: 2%;
-    left: 10%;
-    border: none;
-    font-size: 20px;
-    border-bottom: 1px dashed #ccc;
-  }
-
-  span.close {
-    width: 20px;
-    height: 20px;
-    content: "X";
-    position: fixed;
-    top: 0px;
-    right: 0px;
+@media screen and (max-width: 960px) {
+  body {
+    font-size: 14px;
+    flex-direction: column;
     display: block;
   }
 
-  #sendToMe {
-    background-color: $lightgreen;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
-    height: 40px;
-    color: white;
-    border: none;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  body {
-    font-size: 14px;
+  .page-content ul {
+    padding: 0px 10px;
   }
 
   #content {
-    width: 85%;
-    margin: 100px auto 0px 40px;
+    padding: 0px;
+
+    .main {
+      flex-direction: column;
+
+      .entry {
+        width: 100%;
+        margin: 0px;
+      }
+    }
+
+    .comments {
+      width: 100%;
+    }
   }
 
-  #progressbar {
-    width: 100%;
+  #progress-bar {
+    top: 40px;
   }
 
   h2 {
@@ -1118,12 +1000,6 @@ button#gosearch {
 
   embed {
     display: none;
-  }
-
-  a.brand {
-    background-color: $lightgreen;
-    color: #fff;
-    text-decoration: none;
   }
 
   .entry-title,
@@ -1149,37 +1025,41 @@ button#gosearch {
     font-size: 12px;
   }
 
+  // move them to the bottom, before the comments
   .sidenav {
-    display: none;
-  }
+    width: 100%;
+    margin: 10px 0px;
 
-  .entry,
-  .comments {
-    float: none;
-    width: auto;
-    background: transparent;
-    padding: 0;
-    box-shadow: none;
+    // hide catalog
+    &#menuIndex {
+      display: none;
+    }
   }
 
   .aside {
     position: relative;
+    margin-top: 40px;
     width: 100%;
     height: 300px;
     max-width: none;
   }
 
   .page-content {
+    overflow: initial;
     margin-left: 0;
     padding-right: 0;
   }
 
-  .page-content ul {
-    width: 85%;
-  }
+  .page-content ul.article-cate {
 
-  .page-content .cate-bar {
-    width: 85%;
+    // search occupy a whole line
+    li.search {
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+    }
   }
 
   .post .aside {
@@ -1192,33 +1072,30 @@ button#gosearch {
     background-image: none;
   }
 
+  // hide most of links and move to top instead of left
   .home-menu {
     height: auto;
-  }
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    top: 0px;
 
-  .home-icon-con.downside,
-  .upside .home-menu-icon {
-    display: none;
-  }
+    .upside,
+    .downside {
+      display: flex;
+    }
 
-  .upside .home-menu-icon.brand {
-    display: block
-  }
+    .home-menu-icon {
+      width: 40px;
+    }
 
-  .upside:hover>a {
-    display: block;
-  }
+    .upside .home-menu-icon.follow {
+      display: none;
+    }
 
-  .home-contact {
-    color: #fff;
-    margin: 0;
-    width: 40px;
-    line-height: 40px;
-    height: 120px;
-    background: #000;
-    padding: 10px 0 9px;
-    text-align: center;
-    display: none;
+    .downside .home-menu-icon.rss {
+      display: none;
+    }
   }
 
   span.author,
@@ -1233,6 +1110,10 @@ button#gosearch {
   .stars,
   .twinkling {
     display: none;
+  }
+
+  .pagination {
+    padding: 0 40px;
   }
 }
 
@@ -1286,13 +1167,71 @@ button#gosearch {
   }
 }
 
-@media screen and (max-width:1260px) and (min-width: 750px) {
-  .aside {
-    width: 400px;
+/****** twinkling *******/
+
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
   }
 
-  .page-content {
-    margin-left: 400px;
-    padding-right: 10px;
+  to {
+    background-position: -10000px 5000px;
   }
+}
+
+@-webkit-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@-moz-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@-ms-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+.stars {
+  background: #000 url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+}
+
+.twinkling {
+  background: transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+  z-index: -10;
+  -moz-animation: move-twink-back 200s linear infinite;
+  -ms-animation: move-twink-back 200s linear infinite;
+  -o-animation: move-twink-back 200s linear infinite;
+  -webkit-animation: move-twink-back 200s linear infinite;
+  animation: move-twink-back 200s linear infinite;
+}
+
+.stars,
+.twinkling {
+  z-index: -10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }

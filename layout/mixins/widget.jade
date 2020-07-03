@@ -1,5 +1,8 @@
+mixin catalog()
+  aside#menuIndex.sidenav.hidden
+
 mixin searchbox()
-  if theme.swiftype
+  if config.swiftype
     aside.sidenav
       input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
 
@@ -8,9 +11,9 @@ mixin series()
     - var counter = 0
     aside.sidenav.series
       h2= "In Serie: "+page.series
-        i.fa.fa-arrow-down.expand
-        i.collapse.fa.fa-arrow-up
-      ul.article-list
+        i.fas.fa-arrow-down.expand
+        i.collapse.fas.fa-arrow-up
+      ul.article-list.hidden
         each post,key in site.posts.toArray()
           if post.series == page.series && counter != 6
             if post.title == page.title
@@ -39,7 +42,7 @@ mixin related()
   -   }
   - }
   if posts.length > 0
-    div.relatedposts.sidenav
+    div.related-posts.sidenav
       h2= "Related Posts:"
       ul.article-list
         each post in posts
@@ -49,27 +52,25 @@ mixin related()
 mixin recent()
   if site.posts.toArray().length>2
     aside.sidenav
-      div.recentposts
+      div.recent-posts
         h2 Recent Posts:
         ul.article-list
           each post in site.posts.sort('-date').limit(5).toArray()
             if post.title != page.title
               li
                 a(href=url_for(post.permalink))= post.title
-mixin music()
-  div#musicbar
-    iframe(frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=40 src="")
 
 mixin picbar()
   aside.aside
     div.transparent
-    i.reloadimage.fa.fa-refresh.fa-1x
+    span.reload-image.hint--right(aria-label="Click to update image.")
+      i.fas.fa-sync
     div.location
       span
-      a.location-icon(href='javascript:customLocation()')
-        i.fa.fa-location-arrow.fa-1x
-        form(action="javascript:updateLocation()")
-          input#cLocation(placeholder="输入城市拼音或英文")
+      span.location-icon.hint--bottom(aria-label="Click to change your city manually.")
+        i.fas.fa-location-arrow
+        form.location-form
+          input#cLocation.hidden(placeholder="输入城市拼音或英文")
     h2.hello
       span
     h2.weather-cn
@@ -83,12 +84,12 @@ mixin tipme()
 
 mixin tagbar()
   nav.cate-bar
-    ul.tags
+    ul.tags.hidden
       a(href="javascript:;" data-rel="All" class="filter tag active") All
       - var tags = []
       - page.posts.toArray().map(function(item){item.tags.toArray().map(function(i){if(tags.indexOf(i.name)==-1){tags.push(i.name)}})})
       each tag in tags
-        a(href="javascript:;" data-rel="#{ tag.replace(/ /g,'-') }" class="filter tag")= tag
+        a.filter.tag.hidden(href="javascript:;" data-rel="#{ tag.replace(/ /g,'-') }")= tag
 
 mixin catebar()
   nav
@@ -108,9 +109,8 @@ mixin catebar()
         input.st-default-search-input.searchbox(type="text" placeholder="Enter to search")
 
 mixin summary()
-  - var authors = theme.authors
-  - var summary_class = item.encrypt ? 'title-excerpt encrypt' : 'title-excerpt'
-  a.summary(class="#{summary_class}" href= url_for(item.path))
+  - var authors = config.authors
+  a.summary.title-excerpt(href= url_for(item.path))
     if item.excerpt
       = item.excerpt
     else if item.language == "zh"
@@ -119,21 +119,21 @@ mixin summary()
       = strip_html(item.content).slice(0,320) + "..."
   div.post-info
     span.author
-      i.fa.fa-user
+      i.fas.fa-user
       - var author = item.author || "taoalpha"
       a(href=authors[author].web) #{ authors[author].display_name }
     span.category
-      i.fa.fa-briefcase
+      i.fas.fa-briefcase
       each cat in item.categories.toArray()
         a(href=url_for("categories/"+cat.name)) #{ cat.name }
     span.tags
-      i.fa.fa-tags
+      i.fas.fa-tags
       each tag in item.tags.toArray()
         a(href=url_for("tags/"+tag.name.replace(/ /g,'-'))) #{ tag.name }
     span.postdate
-      i.fa.fa-history 
+      i.fas.fa-history 
       = date(item.date,'dd, MMMM D, YYYY')
     span.readspeed
-      i.fa.fa-clock-o
+      i.fas.fa-clock-o
       = Math.floor((strip_html(item.content).length/350)) + " minutes to read"
-    span.viewcount
+    span.view-count.hint--bottom(aria-label="Number of page views for this post.")

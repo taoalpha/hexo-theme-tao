@@ -4,7 +4,7 @@ if config.comments == 'gitment'
   .comments
     script.
       const gitment = new Gitment({
-        id: '#{page.path}',
+        id: new Date('#{page.date}').toISOString(),
         owner: '#{config.gitment.owner}',
         repo: '#{config.gitment.repo}',
         oauth: {
@@ -20,7 +20,7 @@ if config.comments == 'gitalk'
   .comments
     script.
       const gitalk = new Gitalk({
-        id: '#{page.path}',
+        id: new Date('#{page.date}').toISOString(),
         owner: '#{config.gitalk.owner}',
         repo: '#{config.gitalk.repo}',
         clientID: '#{config.gitalk.client_id}',
