@@ -39,7 +39,10 @@ function saveSettings(settings: Settings) {
   settings.imgUrls = { ...oldSettings.imgUrls, ...settings.imgUrls };
   settings.lastUpdate = { ...oldSettings.lastUpdate, ...settings.lastUpdate };
   settings.pixabayHits = settings.pixabayHits || oldSettings.pixabayHits;
-  settings.weatherData = { ...settings.weatherData, ...oldSettings.weatherData };
+  settings.weatherData = { ...oldSettings.weatherData, ...settings.weatherData };
+  if (settings.enableLocation === undefined) {
+    settings.enableLocation = oldSettings.enableLocation;
+  }
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
@@ -56,33 +59,36 @@ function getCurrentPosition() {
 
 window.getLocation = () => {
   const settings = getSettings();
+  const patchUpdates: Settings = { lastUpdate: {} };
 
   // get location and update weather info base on the request
   let p = Promise.resolve(null);
   // if weather info is not expired, just use it
   if (settings.weatherData && !isExpired(settings, 'weather', 1000 * 60 * 60)) {
-    p = p.then(() => window.updateWeather(settings.weatherData, 'storage'));
+    p = p.then(() => updateWeatherWithData(settings.weatherData, 'storage'));
   } else if (settings.enableLocation || settings.enableLocation === undefined) {
-    p = p.then(() => getCurrentPosition()).then(loc => window.updateWeather(loc)).catch(e => {
-      if (!e || !e.code || e.code === e.PERMISSION_DENIED) {
-        settings.enableLocation = false;
-      }
-      return window.updateWeather(settings.cLocation ?? "beijing", "city");
-    });
+    p = p.then(() => getCurrentPosition())
+      .then((loc: Position) => updateWeatherWithData(loc))
+      .catch(e => {
+        if (!e || !e.code || e.code === e.PERMISSION_DENIED) {
+          patchUpdates.enableLocation = false;
+        }
+        return updateWeatherWithData(settings.cLocation ?? "beijing", "city");
+      });
   } else {
-    p = p.then(() => window.updateWeather(settings.cLocation ?? 'beijing', 'city'));
+    p = p.then(() => updateWeatherWithData(settings.cLocation ?? 'beijing', 'city'));
   }
 
   return p.then(weatherData => {
-    settings.weatherData = weatherData;
-    settings.lastUpdate["weather"] = `${new Date()}`;
+    patchUpdates.weatherData = weatherData;
+    patchUpdates.lastUpdate["weather"] = `${new Date()}`;
   }).finally(() => {
-    saveSettings(settings);
+    saveSettings(patchUpdates);
   });
 }
 
 // Update the Weather information
-window.updateWeather = (position: string | WeatherData | Position, flag = "") => {
+function updateWeatherWithData(position: string | WeatherData | Position, flag = "") {
   let weatherUrl = ''
   if (flag === "city") {
     weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + position + "&lang=zh_cn&units=metric&APPID=dc89c84c07cb6ee8c613334dbac4959c";
@@ -96,8 +102,24 @@ window.updateWeather = (position: string | WeatherData | Position, flag = "") =>
   return fetch(weatherUrl).then(r => r.json()).then((data: WeatherData) => updateWeatherPart(data));
 }
 
+// update weather with city name
+window.updateWeather = (city: string) => {
+  const patchUpdates: Settings = { lastUpdate: {} };
+  return updateWeatherWithData(city, "city").then(data => {
+    if (data) {
+      patchUpdates.weatherData = data;
+      patchUpdates.lastUpdate["weather"] = `${new Date()}`;
+      saveSettings(patchUpdates);
+    }
+  });
+}
+
 // update weather in the page
 function updateWeatherPart(data: WeatherData) {
+  if (!data.name) {
+    window.showAlert('fail', 'Fail to get weather info for the given location!');
+    return;
+  }
   var dt = data["dt"] * 1000
   var day = new Date(dt).getDate()
   var month = new Date(dt).getMonth()
@@ -135,22 +157,28 @@ function setImage(img: PixabayHitImage) {
   const picBar = document.querySelector(".aside") as HTMLDivElement;
   if (!picBar) return img.largeImageURL;
   picBar.style.backgroundImage = "url(" + img.largeImageURL + ")";
+  const imgEl = document.createElement('img');
+  imgEl.addEventListener("error", e => {
+    window.randomImage({ forceFetch: true });
+  });
+  imgEl.src = img.largeImageURL;
   return img.largeImageURL;
 }
 
-window.randomImage = (force = false, retry = 0) => {
+window.randomImage = ({ forceFetch = false, refresh = false, maxRetries = 3, retry = 0 } = {}) => {
   let p = Promise.resolve(null);
   const settings = getSettings();
-  const path = location.pathname.split("/")[2] || "home";
+  const patchUpdates: Settings = { lastUpdate: {}, imgUrls: {} };
+  const path = location.pathname.split("/").slice(2).join("_") || "home";
   // if image is not expired, use it
-  if (!force && settings.imgUrls[path] && !isExpired(settings, `image_${path}`)) {
+  if (!forceFetch && !refresh && settings.imgUrls[path] && !isExpired(settings, `image_${path}`, 1000 * 60 * 30)) {
     p = p.then(() => setImage({ largeImageURL: settings.imgUrls[path] }));
     // 3 days expiration of the pixabay fetch data
-  } else if (settings.pixabayHits && !isExpired(settings, 'pixabay', 1000 * 60 * 60 * 24 * 3)) {
+  } else if (!forceFetch && settings.pixabayHits && !isExpired(settings, 'pixabay', 1000 * 60 * 60 * 24 * 2)) {
     // if data is still valid
     const hits = settings.pixabayHits;
     p = p.then(() => setImage(hits[Math.floor(Math.random() * hits.length)]));
-  } else if (retry > maxRetry) {
+  } else if (retry > maxRetries) {
     if (settings.pixabayHits) {
       const hits = settings.pixabayHits;
       p = p.then(() => setImage(hits[Math.floor(Math.random() * hits.length)]));
@@ -158,24 +186,25 @@ window.randomImage = (force = false, retry = 0) => {
     return p;
   } else {
     const API_KEY = "17273184-9351a5fdb089acc3a105a946c";
-    p = p.then(() => fetch("https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent('nature')))
+    const searchKeyWords = ["nature", "mountain", "sea", "sky", "universe", "river"];
+    p = p.then(() => fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(searchKeyWords[Math.floor(Math.random() * searchKeyWords.length + 1)])}&per_page=${encodeURIComponent(50)}&page=${Math.floor(Math.random() * 5 + 1)}`))
       .then(r => r.json())
       .then(data => {
-        settings.pixabayHits = data.hits;
-        settings.lastUpdate["pixabay"] = `${new Date()}`;
+        patchUpdates.pixabayHits = data.hits;
+        patchUpdates.lastUpdate["pixabay"] = `${new Date()}`;
         return setImage(data.hits[Math.floor(Math.random() * data.hits.length)]);
       });
   }
 
   return p.then(imgUrl => {
     if (imgUrl) {
-      settings.imgUrls[path] = imgUrl;
-      settings.lastUpdate[`image_${path}`] = `${new Date()}`;
+      patchUpdates.imgUrls[path] = imgUrl;
+      patchUpdates.lastUpdate[`image_${path}`] = `${new Date()}`;
     }
   }).catch(e => {
-    window.randomImage(force, retry + 1);
+    window.randomImage({ forceFetch, refresh, maxRetries, retry: retry + 1 });
   }).finally(() => {
-    saveSettings(settings);
+    saveSettings(patchUpdates);
   });
 }
 

@@ -142,7 +142,8 @@ pre span {
   display: flex;
   padding: 100px 80px;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   .main {
     flex-direction: row;
@@ -499,16 +500,45 @@ pre span {
 
 /********* layout ********/
 
+.page-content .article-list .post-info,
+#content .post-info {
+  color: #bbb;
+  font-size: 13px;
+  padding: 5px 0px;
+
+  i,
+  span {
+    margin-right: 5px;
+    line-height: 1.5em
+  }
+
+  a {
+    color: #bbb;
+    margin-right: 2px;
+    font-weight: normal;
+  }
+
+  a:nth-of-type(n+2):before {
+    content: ",";
+    padding-right: 2px;
+  }
+
+  a:hover {
+    color: #999
+  }
+}
+
 /****************page content area**************/
 .page-content {
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   img {
     max-width: 120%;
   }
 
   ul {
-    padding-left: 20px;
+    padding: 0 20px;
   }
 
   .article-list {
@@ -573,33 +603,6 @@ pre span {
     font-weight: 200;
     line-height: 1.8em;
     margin-bottom: 6px;
-  }
-
-  .post-info {
-    color: #bbb;
-    font-size: 13px;
-    padding: 5px 0px;
-
-    i,
-    span {
-      margin-right: 5px;
-      line-height: 1.5em
-    }
-
-    a {
-      color: #bbb;
-      margin-right: 2px;
-      font-weight: normal;
-    }
-
-    a:nth-of-type(n+2):before {
-      content: ",";
-      padding-right: 2px;
-    }
-
-    a:hover {
-      color: #999
-    }
   }
 
   ul.article-cate {
@@ -971,6 +974,7 @@ a.brand {
 
   #content {
     padding: 0px;
+    margin-top: 40px;
 
     .main {
       flex-direction: column;

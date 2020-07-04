@@ -4,8 +4,8 @@ declare global {
   interface Window {
     animateCSS(el: string | Element, name: string[], prefix?: string): Promise<unknown>;
     getLocation(): Promise<void>;
-    randomImage(force?: boolean, retry?: number): Promise<void>;
-    updateWeather(position: any, flag?: string): Promise<{}>;
+    randomImage(option: { forceFetch?: boolean, maxRetries?: number, refresh?: boolean, retry?: number }): Promise<void>;
+    updateWeather(city: string): Promise<void>;
     randomTags(): void;
     getPageViewCount(): Promise<void>;
     getGALogFile(): Promise<void>;

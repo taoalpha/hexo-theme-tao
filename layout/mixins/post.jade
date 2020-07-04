@@ -29,3 +29,15 @@ mixin post(item)
       span.readspeed= Math.floor(strip_html(item.content).length / 350 + 1) +" minutes to read"
     div.entry-content
       !=item.content
+    div.post-info
+      if item.categories
+        span.category
+          i.fas.fa-briefcase
+          each cat in item.categories.toArray()
+            a(href=url_for("categories/"+cat.name)) #{ cat.name }
+      if item.tags
+        span.tags
+          i.fas.fa-tags
+          each tag in item.tags.toArray()
+            a(href=url_for("tags/"+tag.name.replace(/ /g,'-'))) #{ tag.name }
+ 

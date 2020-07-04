@@ -29,7 +29,7 @@
     e.preventDefault();
     var locationInput = document.querySelector('#cLocation') as HTMLInputElement;
     if (locationInput.value) {
-      window.updateWeather(locationInput.value, "city")
+      window.updateWeather(locationInput.value)
     }
   });
 
@@ -53,7 +53,7 @@
 
   const reloadImage = document.querySelector('.reload-image');
   reloadImage && reloadImage.addEventListener('click', e => {
-    return window.randomImage(/* force= */ true);
+    return window.randomImage({ refresh: true });
   });
 
   const filterEls = document.querySelectorAll('.filter');
