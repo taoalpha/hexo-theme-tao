@@ -18,10 +18,10 @@ mixin series()
           if post.series == page.series && counter != 6
             if post.title == page.title
               li
-                a.current(href=url_for(post.permalink) data-id=counter++)= post.title
+                a.current(href=url_for(post.path) data-id=counter++)= post.title
             else
               li
-                a(href=url_for(post.permalink) data-id=counter++)= post.title
+                a(href=url_for(post.path) data-id=counter++)= post.title
 
 mixin related()
   - var posts = []
@@ -47,7 +47,7 @@ mixin related()
       ul.article-list
         each post in posts
           li
-            a(href=url_for(post.permalink))= post.title
+            a(href=url_for(post.path))= post.title
 
 mixin recent()
   if site.posts.toArray().length>2
@@ -58,7 +58,7 @@ mixin recent()
           each post in site.posts.sort('-date').limit(5).toArray()
             if post.title != page.title
               li
-                a(href=url_for(post.permalink))= post.title
+                a(href=url_for(post.path))= post.title
 
 mixin picbar()
   aside.aside

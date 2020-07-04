@@ -15,13 +15,5 @@ block scripts
   if page.function == "log-analyse"
     script(type="text/javascript").
       getGALogFile()
-  if pname == "timeline"
-    script(src='https://technotarek.com/timeliner/js/vendor/venobox/venobox.min.js')
-    script(type="text/javascript").
-      $(document).ready(function() {
-        new Timeline();
-        $.timeliner({});
-        $('.venobox').venobox();
-      });
 
 

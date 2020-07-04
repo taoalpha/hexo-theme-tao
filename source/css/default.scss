@@ -1,21 +1,7 @@
-@import "vendor/_reset";
+@import "mixins/_variables";
+@import "mixins/_reset";
 @import "mixins/customize";
 @import "syntax";
-
-$google_green: #0F9D58;
-$google_red: #DB4437;
-$google_yellow: #F4B400;
-$google_blue: #4285F4;
-$grayColor : #999;
-$sidebarbg : #000;
-$lightgreen : #4aab5e;
-$lightbrown : #bb977d;
-$anchorColor: #BD194B;
-$lessgreen : #59D574;
-
-$triadic_blue: #5e4aab;
-$complementary_color: #ab4a97;
-$tetradic_yellow: #97ab4a;
 
 * {
   outline: none;
@@ -36,7 +22,6 @@ body {
 a,
 a:hover {
   text-decoration: none;
-  outline: none;
 }
 
 body {
@@ -64,50 +49,6 @@ h6 {
   margin: 15px auto;
 }
 
-code {
-  background: #eee;
-  border: 1px solid #ccc;
-  padding: 0 5px;
-  font-family: "Courier";
-  line-height: 22px;
-  font-size: 14px;
-  word-wrap: break-word;
-}
-
-pre {
-  position: relative;
-  background-color: #000;
-  padding: 0 0 10px 15px;
-  overflow: hidden;
-  margin: 20px auto;
-  font-size: 14px;
-  -webkit-border-radius: 4px 4px 4px 4px;
-  -moz-border-radius: 4px 4px 4px 4px;
-  border-radius: 4px 4px 4px 4px;
-  color: #b9bdb6;
-}
-
-pre code {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
-
-pre span {
-  line-height: 15px;
-  ;
-}
-
-
-/********** global class *****************/
-.hide {
-  display: none;
-}
-
-.noscroll {
-  overflow: hidden;
-}
-
 /************layout style*****************/
 
 #progress-bar {
@@ -124,7 +65,7 @@ pre span {
   span.bg {
     height: 100%;
     display: block;
-    background-color: #4AAB5E;
+    background-color: $primaryHighlight;
   }
 
   span.text {
@@ -251,7 +192,7 @@ pre span {
 }
 
 .series {
-  background-color: $lightgreen;
+  background-color: $primaryHighlight;
   cursor: pointer;
   padding: 0px;
 
@@ -342,7 +283,6 @@ pre span {
         height: 100%;
         border: 2px solid white;
         @include rounded(50%);
-        box-sizing: border-box;
       }
     }
   }
@@ -383,8 +323,8 @@ pre span {
     padding: 10px 10px 10px 20px;
     line-height: 1.8em;
     font-size: 14px;
-    border-left: 10px solid $lightgreen;
-    background-color: $lessgreen;
+    border-left: 10px solid $primaryHighlight;
+    background-color: $secondaryHighlight;
 
     footer strong {
       margin-right: 20px;
@@ -394,7 +334,7 @@ pre span {
   pre>code:before {
     content: attr(data-lang)" code";
     display: block;
-    background-color: $lightgreen;
+    background-color: $primaryHighlight;
     margin: 0px -15px 10px -15px;
     padding-left: 15px;
     height: 30px;
@@ -461,7 +401,6 @@ pre span {
       top: -2px;
       background-color: transparent;
       height: 25px;
-      outline: none;
       border: none;
       border-bottom: 1px solid #fff;
     }
@@ -494,7 +433,7 @@ pre span {
   }
 
   .location-icon:hover {
-    color: $lightgreen;
+    color: $primaryHighlight;
   }
 }
 
@@ -571,14 +510,14 @@ pre span {
 
     &:visited:hover,
     &:hover {
-      color: $lightgreen;
+      color: $primaryHighlight;
       text-decoration: none;
     }
   }
 
   a.showupdate:after {
     content: "!";
-    color: $lightgreen;
+    color: $primaryHighlight;
     font-size: 25px;
     line-height: 28px;
     margin-left: 10px;
@@ -591,7 +530,7 @@ pre span {
   a.showupdate:visited:hover:after,
   a.showupdate:hover:after {
     content: "! Updated !";
-    color: $lightgreen;
+    color: $primaryHighlight;
     font-size: 25px;
     line-height: 28px;
     margin-left: 10px;
@@ -657,10 +596,8 @@ pre span {
         display: list-item;
         font-size: 14px;
         border-bottom: 1px solid #ccc;
-        outline: none;
         background-position-y: 13px;
         @include rounded(0px);
-        box-sizing: border-box;
         padding-left: 30px;
         width: auto;
       }
@@ -692,9 +629,9 @@ pre span {
         }
 
         &.active {
-          background-color: $lightgreen;
+          background-color: $primaryHighlight;
           color: #fff;
-          border: 1px solid $lightgreen;
+          border: 1px solid $primaryHighlight;
         }
       }
     }
@@ -716,7 +653,7 @@ pre span {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    background-color: $lightgreen;
+    background-color: $primaryHighlight;
     display: inline-block;
     float: left;
     margin-right: 10px;
@@ -742,7 +679,7 @@ pre span {
 
   a:hover {
     color: black;
-    @include gradient($lightgreen, #3e9c6a);
+    @include gradient($primaryHighlight, #3e9c6a);
   }
 }
 
@@ -802,10 +739,15 @@ pre span {
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
+// ga page
+.page-content.galog-page {
+  flex: 1;
+  margin-left: 40px;
+}
+
 /***************Tag Page Bread Navigation Style*****************/
 #bread {
   color: $grayColor;
-  margin-left: 40px;
   border-bottom: 1px dashed #666;
 
   a {
@@ -815,50 +757,6 @@ pre span {
   a:hover {
     color: #000;
   }
-}
-
-/***************Search Page *****************/
-input#search {
-  width: 77%;
-  height: 50px;
-  font-size: 1.1em;
-  margin: 40px 0 40px 40px;
-  float: left;
-  outline: none;
-}
-
-button#gosearch {
-  width: 12%;
-  cursor: pointer;
-  height: 50px;
-  margin: 40px 0;
-  padding: 0px;
-  background-color: $lightgreen;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 1.1em;
-}
-
-/***************Wiki Style*****************/
-.wiki h2 {
-  cursor: pointer;
-}
-
-.wiki ul {
-  margin-left: 30px;
-  margin-bottom: 20px;
-  list-style: disc
-}
-
-.wiki ul li {
-  margin-bottom: 5px;
-}
-
-.wiki ul ul {
-  list-style: circle;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 /**************目录导航**************/
@@ -920,7 +818,7 @@ button#gosearch {
 }
 
 a.brand {
-  background-color: $lightgreen;
+  background-color: $primaryHighlight;
   color: #fff;
   text-decoration: none;
 }
@@ -938,7 +836,7 @@ a.brand {
 .home-menu-icon:hover,
 .home-menu-icon.active,
 .home-follow:hover {
-  background-color: $lightgreen;
+  background-color: $primaryHighlight;
   color: #fff;
   text-decoration: none;
 }
@@ -950,6 +848,7 @@ a.brand {
   background: $sidebarbg;
   padding: 10px 0 9px;
   text-align: center;
+  position: absolute;
 }
 
 .home-contact a {
@@ -966,6 +865,16 @@ a.brand {
     font-size: 14px;
     flex-direction: column;
     display: block;
+  }
+
+  // hide all hints
+  .hint--left,
+  .hint--right,
+  .hint--top,
+  .hint--bottom {
+    &:after {
+      display: none;
+    }
   }
 
   .page-content ul {

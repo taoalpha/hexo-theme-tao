@@ -1,40 +1,54 @@
+@import "mixins/_variables";
+
 code,
 pre {
-    font-size: 0.8em;
-    background-color: #f8f8f8;
-    font-family: 'Roboto Mono', Monaco, courier, monospace
+  font-size: 0.8em;
+  background-color: #f8f8f8;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  background-color: #000;
+  font-size: 14px;
+  color: #b9bdb6;
+}
+
+code {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0 5px;
+  font-family: "Courier";
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
 .highlight {
-    position: relative;
-    margin: 1em 0;
-    border-radius: 2px;
-    line-height: 1.1em;
-    background-color: #f8f8f8;
-    overflow-x: auto
+  margin: 1em 0;
+  overflow-x: auto;
+  position: relative;
 }
 
 .highlight table,
 .highlight tr,
 .highlight td {
-    width: 100%;
-    border-collapse: collapse;
-    padding: 0;
-    margin: 0
+  width: 100%;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0
 }
 
 .highlight .gutter {
-    display: none
+  display: none
 }
 
 .highlight .code pre {
-    padding: 1.2em 1.4em;
-    line-height: 1.5em;
-    margin: 0
+  padding: 1.2em 1.4em;
+  line-height: 1.5em;
+  margin: 0
 }
 
 .highlight.html .code:after,
 .highlight.js .code:after,
+.highlight.javascript .code:after,
+.highlight.typescript .code:after,
+.highlight.ts .code:after,
 .highlight.bash .code:after,
 .highlight.css .code:after,
 .highlight.scss .code:after,
@@ -43,75 +57,81 @@ pre {
 .highlight.xml .code:after,
 .highlight.python .code:after,
 .highlight.json .code:after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #ccc;
-    text-align: right;
-    font-size: 0.75em;
-    padding: 5px 10px 0;
-    line-height: 15px;
-    height: 15px;
-    font-weight: 600
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #ccc;
+  text-align: right;
+  font-size: 0.75em;
+  padding: 5px 10px 0;
+  line-height: 15px;
+  height: 15px;
+  font-weight: 600
 }
 
 .highlight.html .code:after {
-    content: "HTML"
+  content: "HTML"
 }
 
+.highlight.javascript .code:after,
 .highlight.js .code:after {
-    content: "JS"
+  content: "JS"
+}
+
+.highlight.typescript .code:after,
+.highlight.ts .code:after {
+  content: "TS"
 }
 
 .highlight.bash .code:after {
-    content: "BASH"
+  content: "BASH"
 }
 
 .highlight.css .code:after {
-    content: "CSS"
+  content: "CSS"
 }
 
 .highlight.scss .code:after {
-    content: "SCSS"
+  content: "SCSS"
 }
 
 .highlight.diff .code:after {
-    content: "DIFF"
+  content: "DIFF"
 }
 
 .highlight.java .code:after {
-    content: "JAVA"
+  content: "JAVA"
 }
 
 .highlight.xml .code:after {
-    content: "XML"
+  content: "XML"
 }
 
 .highlight.python .code:after {
-    content: "PYTHON"
+  content: "PYTHON"
 }
 
 .highlight.json .code:after {
-    content: "JSON"
+  content: "JSON"
 }
 
 pre {
-    color: #525252
+  color: #525252
 }
 
 pre .function .keyword,
 pre .constant {
-    color: #0092db
+  color: #0092db
 }
 
 pre .keyword,
 pre .attribute {
-    color: #e96900
+  color: #e96900
 }
 
 pre .number,
 pre .literal {
-    color: #ae81ff
+  color: #ae81ff
 }
 
 pre .tag,
@@ -123,22 +143,22 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title,
 pre .tex .special {
-    color: #2973b7
+  color: #2973b7
 }
 
 pre .class .title {
-    color: #fff
+  color: #fff
 }
 
 pre .symbol,
 pre .symbol .string,
 pre .value,
 pre .regexp {
-    color: #42b983
+  color: #42b983
 }
 
 pre .title {
-    color: #83B917
+  color: #83B917
 }
 
 pre .tag .value,
@@ -165,7 +185,7 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .prompt {
-    color: #42b983
+  color: #42b983
 }
 
 pre .comment,
@@ -177,11 +197,11 @@ pre .doctype,
 pre .shebang,
 pre .apache .sqbracket,
 pre .tex .formula {
-    color: #b3b3b3
+  color: #b3b3b3
 }
 
 pre .deletion {
-    color: #BA4545
+  color: #BA4545
 }
 
 pre .coffeescript .javascript,
@@ -191,5 +211,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-    opacity: 0.5
+  opacity: 0.5
 }

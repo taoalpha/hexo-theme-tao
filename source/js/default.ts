@@ -48,7 +48,7 @@
   el && el.addEventListener('click', e => {
     el.classList.toggle('expanded');
     el.nextElementSibling.classList.toggle('hidden');
-    window.animateCSS(el.nextElementSibling, ['slideInDown']);
+    window.animateCSS(el.nextElementSibling, ['fadeIn']);
   });
 
   const reloadImage = document.querySelector('.reload-image');
